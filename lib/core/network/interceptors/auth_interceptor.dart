@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:boilerplate/core/network/api_endpoints.dart';
-import 'package:boilerplate/core/utils/token_service.dart';
+import 'package:boilerplate/core/services/token_service.dart';
 import 'package:dio/dio.dart';
 
 
