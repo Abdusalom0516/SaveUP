@@ -47,19 +47,12 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             navigatorKey: AppRouter.navigatorKey,
             debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme.copyWith(
+            theme: AppTheme.darkTheme.copyWith(
               splashColor: Colors.transparent,
               dividerColor: Colors.transparent,
               highlightColor: Colors.transparent,
               hoverColor: Colors.transparent,
             ),
-            darkTheme: AppTheme.darkTheme.copyWith(
-              splashColor: Colors.transparent,
-              dividerColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-            ),
-            themeMode: state,
             home: HomeScreen(),
           ),
         ),

@@ -4,26 +4,26 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static AppColors colors = AppColors();
   // LIGHT THEME
-  static ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
-    colorScheme: ColorScheme.fromSeed(
-      brightness: Brightness.light,
-      seedColor: colors.purple,
-      primary: colors.primaryLight,
-      secondary: colors.mutedForegroundLight,
-      surface: colors.backgroundLight,
-      tertiary: colors.accentLight,
-      outline: colors.borderLight,
-      primaryContainer: colors.cardLight,
-    ),
-    scaffoldBackgroundColor: colors.backgroundLight,
-    cardColor: colors.cardLight,
-    appBarTheme: AppBarTheme(
-      centerTitle: true,
-      backgroundColor: colors.cardLight,
-      foregroundColor: colors.backgroundDark,
-    ),
-  );
+  // static ThemeData lightTheme = ThemeData(
+  //   brightness: Brightness.light,
+  //   colorScheme: ColorScheme.fromSeed(
+  //     brightness: Brightness.light,
+  //     seedColor: colors.purple,
+  //     primary: colors.primaryLight,
+  //     secondary: colors.mutedForegroundLight,
+  //     surface: colors.backgroundLight,
+  //     tertiary: colors.accentLight,
+  //     outline: colors.borderLight,
+  //     primaryContainer: colors.cardLight,
+  //   ),
+  //   scaffoldBackgroundColor: colors.backgroundLight,
+  //   cardColor: colors.cardLight,
+  //   appBarTheme: AppBarTheme(
+  //     centerTitle: true,
+  //     backgroundColor: colors.cardLight,
+  //     foregroundColor: colors.backgroundDark,
+  //   ),
+  // );
 
   // DARK THEME
   static ThemeData darkTheme = ThemeData(
@@ -32,7 +32,7 @@ class AppTheme {
       brightness: Brightness.dark,
       seedColor: colors.purple,
       primary: colors.primaryDark,
-      secondary: colors.mutedForegroundDark,
+      secondary: colors.secondaryDark,
       surface: colors.backgroundDark,
       tertiary: colors.accentDark,
       outline: colors.borderDark,
