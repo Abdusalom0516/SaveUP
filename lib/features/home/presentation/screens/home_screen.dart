@@ -1,4 +1,7 @@
+import 'package:boilerplate/core/common/widgets/custom_sliver_height_wd.dart';
 import 'package:boilerplate/core/constants/const_img_paths.dart';
+import 'package:boilerplate/core/constants/const_texts.dart';
+import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -10,93 +13,171 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppStateWrapper(
-      builder: (colors, texts, colorScheme) => CustomScrollView(
-        slivers: [
-          // AppBar Section
-          SliverAppBar(
-            title: Row(
-              spacing: 10.r,
-              children: [
-                Image.asset(
-                  ConstImgPaths.mainLogo,
-                  height: 50.r,
-                  width: 50.r,
-                  fit: BoxFit.contain,
-                ),
-                Text(
-                  texts.appName,
-                  style: AppTextStyles.roboto.bold(
-                    fontSize: 21.sp,
-                    color: colorScheme.primary,
-                  ),
-                ),
-              ],
-            ),
-            actions: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: colors.purple, width: 1.3.r),
-                ),
-                child: Text(
-                  "\$69.000",
-                  style: AppTextStyles.roboto.medium(
-                    fontSize: 16.sp,
-                    color: colors.purple,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // Body Section
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16.r),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(16.r),
-                    decoration: BoxDecoration(
-                      color: colorScheme.primaryContainer,
-                      border: Border.all(
-                        color: colorScheme.outline,
-                        width: 1.3.r,
-                      ),
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              texts.overview,
-                              style: AppTextStyles.roboto.medium(
-                                fontSize: 16.sp,
-                                color: colorScheme.primary,
-                              ),
-                            ),
-                            Text(
-                              "2 ${texts.goalsLower} • \$450 ${texts.savedLower}",
-                              style: AppTextStyles.roboto.medium(
-                                fontSize: 14.sp,
-                                color: colorScheme.secondary,
-                              ),
-                            ),
-                          ],
+    return Scaffold(
+      body: AppStateWrapper(
+        builder: (colors, texts, colorScheme) => CustomScrollView(
+          slivers: [
+            // AppBar Section
+            _buildAppBarSection(texts, colorScheme, colors),
+            SliverHeight(height: 25),
+            // Body Section
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  spacing: 20.h,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(16.r),
+                      decoration: BoxDecoration(
+                        color: colorScheme.primaryContainer,
+                        border: Border.all(
+                          color: colorScheme.outline,
+                          width: 1.3.r,
                         ),
-                      ],
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Column(
+                        spacing: 25.h,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                texts.overview,
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 16.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                "2 ${texts.goalsLower} • \$450 ${texts.savedLower}",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            spacing: 7.h,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    texts.totalProgress,
+                                    style: AppTextStyles.roboto.medium(
+                                      fontSize: 14.sp,
+                                      color: colorScheme.secondary,
+                                    ),
+                                  ),
+                                  Text(
+                                    "\$69.000",
+                                    style: AppTextStyles.roboto.medium(
+                                      fontSize: 20.sp,
+                                      color: colorScheme.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: LinearProgressIndicator(
+                                      value: 0.37,
+                                      color: colors.purple,
+                                      backgroundColor: colorScheme.tertiary,
+                                      minHeight: 9.h,
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "37%",
+                                    style: AppTextStyles.roboto.medium(
+                                      fontSize: 14.sp,
+                                      color: colorScheme.secondary,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${texts.of} \$185.000",
+                                    style: AppTextStyles.roboto.medium(
+                                      fontSize: 14.sp,
+                                      color: colorScheme.secondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildAppBarSection(
+    ConstTexts texts,
+    ColorScheme colorScheme,
+    AppColors colors,
+  ) {
+    return SliverAppBar(
+      toolbarHeight: 70.h,
+      title: Row(
+        spacing: 10.r,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: Image.asset(
+              ConstImgPaths.mainLogo,
+              height: 50.r,
+              width: 50.r,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Text(
+            texts.appName,
+            style: AppTextStyles.roboto.bold(
+              fontSize: 21.sp,
+              color: colorScheme.primary,
             ),
           ),
         ],
       ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 16.r),
+          padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 6.r),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(
+              color: colors.purple.withValues(alpha: 0.5),
+              width: 1.3.r,
+            ),
+          ),
+          child: Text(
+            "\$69.000",
+            style: AppTextStyles.roboto.medium(
+              fontSize: 16.sp,
+              color: colors.purple,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
