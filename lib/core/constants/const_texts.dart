@@ -15,7 +15,7 @@ class ConstTexts {
   String settings = "Settings";
   String updateSavings = "Update Savings";
   String add = "Add";
-  String remove = "remove";
+  String remove = "Remove";
   String quickSelect = "Quick select";
   String complete = "Complete";
   String daysActive = "Days Active";
