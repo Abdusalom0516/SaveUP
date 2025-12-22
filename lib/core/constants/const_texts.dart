@@ -1,1 +1,35 @@
-class ConstTexts {}
+class ConstTexts {
+  String overview = "Overview";
+  String totalProgress = "Total Progress";
+  String of = "of";
+  String goalsLower = "goals";
+  String savedLower = "saved";
+  String current = "Current";
+  String target = "Target";
+  String leftLower = "left";
+  String home = "Home";
+  String update = "Update";
+  String stats = "Stats";
+  String premium = "Premium";
+  String settings = "Settings";
+  String updateSavings = "Update Savings";
+  String add = "Add";
+  String remove = "remove";
+  String quickSelect = "Quick select";
+  String complete = "Complete";
+  String daysActive = "Days Active";
+  String avgMonth = "Avg/Month";
+  String updates = "Updates";
+  String monthlyContributions = "Monthly Contributions";
+  String contributionHistory = "Contribution History";
+  String addedLower = "added";
+  String total = "Total";
+  String customizeYourExp = "Customize your experience";
+  String chooseYourFavColor = "Choose your favorite color";
+  String colorTheme = "Color Theme";
+  String fontStyle = "Font Style";
+  String changeTypography = "Change typography";
+  String defaultT = "Default";
+  String preview = "Preview";
+  String sampleGoal = "Sample Goal";
+}
