@@ -27,105 +27,109 @@ class HomeScreen extends HookWidget {
                 child: Column(
                   spacing: 20.h,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(16.r),
-                      decoration: BoxDecoration(
-                        color: colorScheme.primaryContainer,
-                        border: Border.all(
-                          color: colorScheme.outline,
-                          width: 1.3.r,
-                        ),
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Column(
-                        spacing: 25.h,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                texts.overview,
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 16.sp,
-                                  color: colorScheme.primary,
-                                ),
-                              ),
-                              Text(
-                                "2 ${texts.goalsLower} • \$450 ${texts.savedLower}",
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 14.sp,
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            spacing: 7.h,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    texts.totalProgress,
-                                    style: AppTextStyles.roboto.medium(
-                                      fontSize: 14.sp,
-                                      color: colorScheme.secondary,
-                                    ),
-                                  ),
-                                  Text(
-                                    "\$69.000",
-                                    style: AppTextStyles.roboto.medium(
-                                      fontSize: 20.sp,
-                                      color: colorScheme.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: LinearProgressIndicator(
-                                      value: 0.37,
-                                      color: colors.purple,
-                                      backgroundColor: colorScheme.tertiary,
-                                      minHeight: 9.h,
-                                      borderRadius: BorderRadius.circular(8.r),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "37%",
-                                    style: AppTextStyles.roboto.medium(
-                                      fontSize: 14.sp,
-                                      color: colorScheme.secondary,
-                                    ),
-                                  ),
-                                  Text(
-                                    "${texts.of} \$185.000",
-                                    style: AppTextStyles.roboto.medium(
-                                      fontSize: 14.sp,
-                                      color: colorScheme.secondary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Overview Section
+                    _buildOverviewSection(colorScheme, texts, colors),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container _buildOverviewSection(
+    ColorScheme colorScheme,
+    ConstTexts texts,
+    AppColors colors,
+  ) {
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: colorScheme.primaryContainer,
+        border: Border.all(color: colorScheme.outline, width: 1.3.r),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Column(
+        spacing: 25.h,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                texts.overview,
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 16.sp,
+                  color: colorScheme.primary,
+                ),
+              ),
+              Text(
+                "2 ${texts.goalsLower} • \$450 ${texts.savedLower}",
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 14.sp,
+                  color: colorScheme.secondary,
+                ),
+              ),
+            ],
+          ),
+          Column(
+            spacing: 7.h,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    texts.totalProgress,
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 14.sp,
+                      color: colorScheme.secondary,
+                    ),
+                  ),
+                  Text(
+                    "\$69.000",
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 20.sp,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: 0.37,
+                      color: colors.purple,
+                      backgroundColor: colorScheme.tertiary,
+                      minHeight: 9.h,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "37%",
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 14.sp,
+                      color: colorScheme.secondary,
+                    ),
+                  ),
+                  Text(
+                    "${texts.of} \$185.000",
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 14.sp,
+                      color: colorScheme.secondary,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
