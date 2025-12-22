@@ -89,34 +89,34 @@ flutter:
   fonts:
     - family: JetBrainsMono
       fonts:
-        - asset: fonts/Monospace/JetBrainsMono-Regular.ttf
+        - asset: assets/fonts/Monospace/JetBrainsMono-Regular.ttf
           weight: 400
-        - asset: fonts/Monospace/JetBrainsMono-Medium.ttf
+        - asset: assets/fonts/Monospace/JetBrainsMono-Medium.ttf
           weight: 500
-        - asset: fonts/Monospace/JetBrainsMono-SemiBold.ttf
+        - asset: assets/fonts/Monospace/JetBrainsMono-SemiBold.ttf
           weight: 600
-        - asset: fonts/Monospace/JetBrainsMono-Bold.ttf
+        - asset: assets/fonts/Monospace/JetBrainsMono-Bold.ttf
           weight: 700
 
     - family: Roboto
       fonts:
-        - asset: fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
           weight: 400
-        - asset: fonts/Roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
           weight: 500
-        - asset: fonts/Roboto/Roboto-SemiBold.ttf
+        - asset: assets/fonts/Roboto/Roboto-SemiBold.ttf
           weight: 600
-        - asset: fonts/Roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
           weight: 700
 
     - family: NotoSerif
       fonts:
-        - asset: fonts/Serif/NotoSerif-Regular.ttf
+        - asset: assets/fonts/Serif/NotoSerif-Regular.ttf
           weight: 400
-        - asset: fonts/Serif/NotoSerif-Medium.ttf
+        - asset: assets/fonts/Serif/NotoSerif-Medium.ttf
           weight: 500
-        - asset: fonts/Serif/NotoSerif-SemiBold.ttf
+        - asset: assets/fonts/Serif/NotoSerif-SemiBold.ttf
           weight: 600
-        - asset: fonts/Serif/NotoSerif-Bold.ttf
+        - asset: assets/fonts/Serif/NotoSerif-Bold.ttf
           weight: 700
 

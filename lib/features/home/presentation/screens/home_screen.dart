@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppStateWrapper(
-      builder: (colors, texts, colorScheme) =>  CustomScrollView(
+      builder: (colors, texts, colorScheme) => CustomScrollView(
         slivers: [
           // AppBar Section
           SliverAppBar(
@@ -23,9 +23,31 @@ class HomeScreen extends StatelessWidget {
                   width: 50.r,
                   fit: BoxFit.contain,
                 ),
-                Text(texts.appName, style:AppTextStyles.roboto,)
+                Text(
+                  texts.appName,
+                  style: AppTextStyles.roboto.bold(
+                    fontSize: 21.sp,
+                    color: colorScheme.primary,
+                  ),
+                ),
               ],
             ),
+            actions: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 5.r),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: colors.purple, width: 1.3.r),
+                ),
+                child: Text(
+                  "\$69.000",
+                  style: AppTextStyles.roboto.medium(
+                    fontSize: 16.sp,
+                    color: colors.purple,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
