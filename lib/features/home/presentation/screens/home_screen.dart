@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:boilerplate/core/common/widgets/custom_sliver_height_wd.dart';
 import 'package:boilerplate/core/constants/const_img_paths.dart';
 import 'package:boilerplate/core/constants/const_texts.dart';
@@ -21,10 +20,10 @@ class HomeScreen extends HookWidget {
           slivers: [
             // AppBar Section
             _buildAppBarSection(texts, colorScheme, colors),
-            SliverHeight(height: 25),
+            SliverHeight(height: 20),
             // Overview Section
             _buildOverviewSection(colorScheme, texts, colors),
-            SliverHeight(height: 25),
+            SliverHeight(height: 20),
             // Dreams List Section
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -33,6 +32,7 @@ class HomeScreen extends HookWidget {
                 itemBuilder: (context, index) => const DreamCard(),
               ),
             ),
+            SliverHeight(height: 35),
           ],
         ),
       ),
@@ -145,6 +145,11 @@ class HomeScreen extends HookWidget {
     AppColors colors,
   ) {
     return SliverAppBar(
+      shape: Border(
+        bottom: BorderSide(color: colorScheme.outline, width: 1.3.r),
+      ),
+      floating: true,
+      pinned: true,
       toolbarHeight: 70.h,
       title: Row(
         spacing: 10.r,
