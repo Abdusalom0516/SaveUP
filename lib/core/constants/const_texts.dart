@@ -1,4 +1,5 @@
 class ConstTexts {
+  String appName = "Save UP";
   String overview = "Overview";
   String totalProgress = "Total Progress";
   String of = "of";
