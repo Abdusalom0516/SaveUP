@@ -25,16 +25,20 @@ class HomeScreen extends HookWidget {
             _buildOverviewSection(colorScheme, texts, colors),
             SliverHeight(height: 20),
             // Dreams List Section
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16.r),
-              sliver: SliverList.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) => const DreamCard(),
-              ),
-            ),
+            _buildDreamsListSection(),
             SliverHeight(height: 35),
           ],
         ),
+      ),
+    );
+  }
+
+  SliverPadding _buildDreamsListSection() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 16.r),
+      sliver: SliverList.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) => const DreamCard(),
       ),
     );
   }
