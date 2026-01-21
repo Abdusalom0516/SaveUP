@@ -1,5 +1,6 @@
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/home/presentation/screens/home_screen.dart';
+import 'package:boilerplate/features/premium/presentation/screens/premium_screen.dart';
 import 'package:boilerplate/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -20,7 +21,7 @@ class MainScreen extends HookWidget {
           physics: NeverScrollableScrollPhysics(),
           children: [
             HomeScreen(),
-            HomeScreen(),
+            PremiumScreen(),
             HomeScreen(),
             SettingsScreen(),
           ],
