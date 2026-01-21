@@ -1,5 +1,6 @@
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/home/presentation/screens/home_screen.dart';
+import 'package:boilerplate/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,12 @@ class MainScreen extends HookWidget {
         body: PageView(
           controller: pageController,
           physics: NeverScrollableScrollPhysics(),
-          children: [HomeScreen(), HomeScreen(), HomeScreen(), HomeScreen()],
+          children: [
+            HomeScreen(),
+            HomeScreen(),
+            HomeScreen(),
+            SettingsScreen(),
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -30,6 +36,7 @@ class MainScreen extends HookWidget {
             backgroundColor: colorScheme.primaryContainer,
             onItemSelected: (index) {
               navigationIndex.value = index;
+              pageController.jumpToPage(index);
             },
             waterDropColor: colors.purple,
             selectedIndex: navigationIndex.value,
