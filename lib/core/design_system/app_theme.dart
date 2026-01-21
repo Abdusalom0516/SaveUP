@@ -44,6 +44,9 @@ class AppTheme {
       centerTitle: true,
       backgroundColor: colors.cardDark,
       foregroundColor: colors.white,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      scrolledUnderElevation: 0,
     ),
   );
 }
