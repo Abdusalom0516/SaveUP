@@ -150,7 +150,7 @@ class HomeScreen extends HookWidget {
   ) {
     return SliverAppBar(
       shape: Border(
-        bottom: BorderSide(color: colorScheme.outline, width: 1.3.r),
+        bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
       ),
       floating: true,
       pinned: true,
