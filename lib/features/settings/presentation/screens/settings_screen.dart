@@ -14,13 +14,12 @@ class SettingsScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final chosenColorIndex = useState(0);
+    final chosenFontFamilyIndex = useState(0);
     return AppStateWrapper(
       builder: (colors, texts, colorScheme) => Scaffold(
         body: CustomScrollView(
           slivers: [
             _buildAppBar(colorScheme, colors, texts),
-            SliverHeight(height: 20),
-            _buildThemeSection(colorScheme, colors, chosenColorIndex),
             SliverHeight(height: 20),
             SliverPadding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
@@ -35,12 +34,162 @@ class SettingsScreen extends HookWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Column(children: [SettingsFontFamilyOptionCard()]),
+                  child: Column(
+                    spacing: 10.r,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        texts.preview,
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 18.sp,
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(12.r),
+                        decoration: BoxDecoration(
+                          color: colorScheme.tertiary.withValues(alpha: 0.4),
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Column(
+                          spacing: 15.h,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              spacing: 10.r,
+                              children: [
+                                Container(
+                                  height: 18.h,
+                                  width: 4.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    color: colors.purple,
+                                  ),
+                                ),
+                                Text(
+                                  texts.sampleGoal,
+                                  style: AppTextStyles.roboto.medium(
+                                    fontSize: 16.sp,
+                                    color: colorScheme.primary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              spacing: 6.h,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "\$5,000 / \$10,000",
+                                  style: AppTextStyles.roboto.regular(
+                                    fontSize: 16.sp,
+                                    color: colorScheme.primary,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: LinearProgressIndicator(
+                                        value: 0.75,
+                                        color: colors.purple,
+                                        backgroundColor: colorScheme.tertiary,
+                                        minHeight: 9.h,
+                                        borderRadius: BorderRadius.circular(
+                                          8.r,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
+            SliverHeight(height: 20),
+            _buildThemeSection(colorScheme, colors, chosenColorIndex),
+            SliverHeight(height: 20),
+            _buildFontFamilySection(
+              colorScheme,
+              colors,
+              texts,
+              chosenFontFamilyIndex,
+            ),
             SliverHeight(height: 35),
           ],
+        ),
+      ),
+    );
+  }
+
+  SliverPadding _buildFontFamilySection(
+    ColorScheme colorScheme,
+    AppColors colors,
+    ConstTexts texts,
+    ValueNotifier<int> chosenFontFamilyIndex,
+  ) {
+    return SliverPadding(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          padding: EdgeInsets.all(16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer,
+            border: Border.all(color: colorScheme.outline, width: 1.5.r),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            spacing: 12.h,
+            children: [
+              SettingsFontFamilyOptionCard(
+                mainColor: colors.purple,
+                title: texts.defaultT,
+                subtitle: "Clean & Modern",
+                extraText: "Sans-serif system font",
+                textStyle: AppTextStyles.roboto.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.purple,
+                ),
+                isChosen: chosenFontFamilyIndex.value == 0,
+                func: () {
+                  chosenFontFamilyIndex.value = 0;
+                },
+              ),
+              SettingsFontFamilyOptionCard(
+                mainColor: colors.purple,
+                title: "Monospace",
+                subtitle: "Code Style",
+                extraText: "Technical & Precise",
+                textStyle: AppTextStyles.monospace.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.purple,
+                ),
+                isChosen: chosenFontFamilyIndex.value == 1,
+                func: () {
+                  chosenFontFamilyIndex.value = 1;
+                },
+              ),
+              SettingsFontFamilyOptionCard(
+                mainColor: colors.purple,
+                title: "Serif",
+                subtitle: "Classic & Elegant",
+                extraText: "Traditional & refined",
+                textStyle: AppTextStyles.serif.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.purple,
+                ),
+                isChosen: chosenFontFamilyIndex.value == 2,
+                func: () {
+                  chosenFontFamilyIndex.value = 2;
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -176,51 +325,70 @@ class SettingsScreen extends HookWidget {
 }
 
 class SettingsFontFamilyOptionCard extends StatelessWidget {
-  const SettingsFontFamilyOptionCard({super.key});
+  const SettingsFontFamilyOptionCard({
+    super.key,
+    required this.mainColor,
+    required this.title,
+    required this.subtitle,
+    required this.extraText,
+    required this.textStyle,
+    required this.func,
+    required this.isChosen,
+  });
+  final Color mainColor;
+  final String title, subtitle, extraText;
+  final bool isChosen;
+  final VoidCallback func;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
     return AppStateWrapper(
-      builder: (colors, texts, colorScheme) => Container(
-        padding: EdgeInsets.all(12.r),
-        decoration: BoxDecoration(
-          color: colorScheme.tertiary.withValues(alpha: 0.4),
-          borderRadius: BorderRadius.circular(12.r),
-        ),
-        child: Row(
-          spacing: 25.w,
-          children: [
-            Expanded(
-              child: Column(
-                spacing: 5.h,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    texts.defaultT,
-                    style: AppTextStyles.roboto.medium(
-                      fontSize: 16.sp,
-                      color: colorScheme.primary,
+      builder: (colors, texts, colorScheme) => InkWell(
+        onTap: func,
+        child: Container(
+          padding: EdgeInsets.all(16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.tertiary.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Row(
+            spacing: 25.w,
+            children: [
+              Expanded(
+                child: Column(
+                  spacing: 5.h,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.roboto.medium(
+                        fontSize: 16.sp,
+                        color: colorScheme.primary,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Clean & Modern",
-                    style: AppTextStyles.roboto.semiBold(
-                      fontSize: 20.sp,
-                      color: colors.purple,
+                    Text(
+                      subtitle,
+                      overflow: TextOverflow.ellipsis,
+                      style: textStyle,
                     ),
-                  ),
-                  Text(
-                    "Sans-serif system font",
-                    style: AppTextStyles.roboto.medium(
-                      fontSize: 16.sp,
-                      color: colorScheme.secondary,
+                    Text(
+                      extraText,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.roboto.medium(
+                        fontSize: 16.sp,
+                        color: colorScheme.secondary,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Icon(Icons.circle, size: 12.r, color: colors.purple),
-          ],
+              isChosen
+                  ? Icon(Icons.circle, size: 12.r, color: mainColor)
+                  : SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );
