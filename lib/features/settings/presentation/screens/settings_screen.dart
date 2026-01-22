@@ -20,8 +20,10 @@ class SettingsScreen extends HookWidget {
           slivers: [
             _buildAppBar(colorScheme, colors, texts),
             SliverHeight(height: 20),
+            _buildThemeSection(colorScheme, colors, chosenColorIndex),
+            SliverHeight(height: 20),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
               sliver: SliverToBoxAdapter(
                 child: Container(
                   padding: EdgeInsets.all(16.r),
@@ -33,69 +35,91 @@ class SettingsScreen extends HookWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Column(
-                    spacing: 15.h,
-                    children: [
-                      SettingsColorOption(
-                        mainColor: colors.purple,
-                        title: "Purple Dream",
-                        subtitle: "Creative & Modern",
-                        func: () {
-                          chosenColorIndex.value = 0;
-                        },
-                        isChosen: chosenColorIndex.value == 0,
-                      ),
-                      SettingsColorOption(
-                        mainColor: colors.blue,
-                        title: "Ocean Blue",
-                        subtitle: "Calm & Trustworthy",
-                        func: () {
-                          chosenColorIndex.value = 1;
-                        },
-                        isChosen: chosenColorIndex.value == 1,
-                      ),
-                      SettingsColorOption(
-                        mainColor: colors.green,
-                        title: "Forest Green",
-                        subtitle: "Fresh & Growth",
-                        func: () {
-                          chosenColorIndex.value = 2;
-                        },
-                        isChosen: chosenColorIndex.value == 2,
-                      ),
-                      SettingsColorOption(
-                        mainColor: colors.orange,
-                        title: "Sunset Orange",
-                        subtitle: "Energetic & Bold",
-                        func: () {
-                          chosenColorIndex.value = 3;
-                        },
-                        isChosen: chosenColorIndex.value == 3,
-                      ),
-                      SettingsColorOption(
-                        mainColor: colors.pink,
-                        title: "Pink Blush",
-                        subtitle: "Playful & Fun",
-                        func: () {
-                          chosenColorIndex.value = 4;
-                        },
-                        isChosen: chosenColorIndex.value == 4,
-                      ),
-                      SettingsColorOption(
-                        mainColor: colors.teal,
-                        title: "Teal Wave",
-                        subtitle: "Balanced & Unique",
-                        func: () {
-                          chosenColorIndex.value = 5;
-                        },
-                        isChosen: chosenColorIndex.value == 5,
-                      ),
-                    ],
-                  ),
+                  child: Column(children: [SettingsFontFamilyOptionCard()]),
                 ),
               ),
             ),
+            SliverHeight(height: 35),
           ],
+        ),
+      ),
+    );
+  }
+
+  SliverPadding _buildThemeSection(
+    ColorScheme colorScheme,
+    AppColors colors,
+    ValueNotifier<int> chosenColorIndex,
+  ) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          padding: EdgeInsets.all(16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer,
+            border: Border.all(color: colorScheme.outline, width: 1.5.r),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            spacing: 15.h,
+            children: [
+              SettingsColorOptionCard(
+                mainColor: colors.purple,
+                title: "Purple Dream",
+                subtitle: "Creative & Modern",
+                func: () {
+                  chosenColorIndex.value = 0;
+                },
+                isChosen: chosenColorIndex.value == 0,
+              ),
+              SettingsColorOptionCard(
+                mainColor: colors.blue,
+                title: "Ocean Blue",
+                subtitle: "Calm & Trustworthy",
+                func: () {
+                  chosenColorIndex.value = 1;
+                },
+                isChosen: chosenColorIndex.value == 1,
+              ),
+              SettingsColorOptionCard(
+                mainColor: colors.green,
+                title: "Forest Green",
+                subtitle: "Fresh & Growth",
+                func: () {
+                  chosenColorIndex.value = 2;
+                },
+                isChosen: chosenColorIndex.value == 2,
+              ),
+              SettingsColorOptionCard(
+                mainColor: colors.orange,
+                title: "Sunset Orange",
+                subtitle: "Energetic & Bold",
+                func: () {
+                  chosenColorIndex.value = 3;
+                },
+                isChosen: chosenColorIndex.value == 3,
+              ),
+              SettingsColorOptionCard(
+                mainColor: colors.pink,
+                title: "Pink Blush",
+                subtitle: "Playful & Fun",
+                func: () {
+                  chosenColorIndex.value = 4;
+                },
+                isChosen: chosenColorIndex.value == 4,
+              ),
+              SettingsColorOptionCard(
+                mainColor: colors.teal,
+                title: "Teal Wave",
+                subtitle: "Balanced & Unique",
+                func: () {
+                  chosenColorIndex.value = 5;
+                },
+                isChosen: chosenColorIndex.value == 5,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -146,6 +170,58 @@ class SettingsScreen extends HookWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SettingsFontFamilyOptionCard extends StatelessWidget {
+  const SettingsFontFamilyOptionCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppStateWrapper(
+      builder: (colors, texts, colorScheme) => Container(
+        padding: EdgeInsets.all(12.r),
+        decoration: BoxDecoration(
+          color: colorScheme.tertiary.withValues(alpha: 0.4),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Row(
+          spacing: 25.w,
+          children: [
+            Expanded(
+              child: Column(
+                spacing: 5.h,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    texts.defaultT,
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 16.sp,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  Text(
+                    "Clean & Modern",
+                    style: AppTextStyles.roboto.semiBold(
+                      fontSize: 20.sp,
+                      color: colors.purple,
+                    ),
+                  ),
+                  Text(
+                    "Sans-serif system font",
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 16.sp,
+                      color: colorScheme.secondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.circle, size: 12.r, color: colors.purple),
+          ],
+        ),
       ),
     );
   }

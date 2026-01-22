@@ -3,8 +3,8 @@ import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SettingsColorOption extends StatelessWidget {
-  const SettingsColorOption({
+class SettingsColorOptionCard extends StatelessWidget {
+  const SettingsColorOptionCard({
     super.key,
     required this.mainColor,
     required this.title,

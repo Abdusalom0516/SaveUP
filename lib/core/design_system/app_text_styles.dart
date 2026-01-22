@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 abstract class AppTextStyles {
   static Roboto roboto = Roboto();
+  static Serif serif = Serif();
+  static Monospace monospace = Monospace();
 
   TextStyle bold({required double fontSize, Color? color});
 
