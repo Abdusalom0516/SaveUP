@@ -54,7 +54,7 @@ class SettingsScreen extends HookWidget {
                         isChosen: chosenColorIndex.value == 1,
                       ),
                       SettingsColorOption(
-                        mainColor: colors.purple,
+                        mainColor: colors.green,
                         title: "Forest Green",
                         subtitle: "Fresh & Growth",
                         func: () {
@@ -63,7 +63,7 @@ class SettingsScreen extends HookWidget {
                         isChosen: chosenColorIndex.value == 2,
                       ),
                       SettingsColorOption(
-                        mainColor: colors.purple,
+                        mainColor: colors.orange,
                         title: "Sunset Orange",
                         subtitle: "Energetic & Bold",
                         func: () {
@@ -72,7 +72,7 @@ class SettingsScreen extends HookWidget {
                         isChosen: chosenColorIndex.value == 3,
                       ),
                       SettingsColorOption(
-                        mainColor: colors.purple,
+                        mainColor: colors.pink,
                         title: "Pink Blush",
                         subtitle: "Playful & Fun",
                         func: () {
@@ -81,7 +81,7 @@ class SettingsScreen extends HookWidget {
                         isChosen: chosenColorIndex.value == 4,
                       ),
                       SettingsColorOption(
-                        mainColor: colors.purple,
+                        mainColor: colors.teal,
                         title: "Teal Wave",
                         subtitle: "Balanced & Unique",
                         func: () {
