@@ -33,4 +33,9 @@ class ConstTexts {
   String defaultT = "Default";
   String preview = "Preview";
   String sampleGoal = "Sample Goal";
+  String premiumPlans = "Premium Plans";
+  String unlockDreams = "Unlock more dreams";
+  String currentPlan = "Current Plan";
+  String freeVersion = "Free Version";
+  String goalsUsed = "Goals Used";
 }
