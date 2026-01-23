@@ -28,6 +28,103 @@ class PremiumScreen extends StatelessWidget {
             SliverHeight(height: 20),
             // Why Upgrade Section
             _buildWhyUpgradeSection(colorScheme, colors),
+            SliverHeight(height: 20),
+            // Frequently Asked Questions
+            SliverPadding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+              sliver: SliverToBoxAdapter(
+                child: Container(
+                  padding: EdgeInsets.all(16.r),
+                  decoration: BoxDecoration(
+                    color: colorScheme.tertiary.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: colorScheme.outline,
+                      width: 1.5.r,
+                    ),
+                  ),
+                  child: Column(
+                    spacing: 15.h,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Frequently Asked",
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 18.sp,
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                      Column(
+                        spacing: 7.h,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            spacing: 2.h,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Can I upgrade later?",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                "Yes! You can upgrade anytime.",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            spacing: 2.h,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "What happens to my data?",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                "All your goals and progress are saved securely.",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            spacing: 2.h,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Are there refunds?",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                "No, unfortunately there is not refund",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             SliverHeight(height: 35),
           ],
         ),
