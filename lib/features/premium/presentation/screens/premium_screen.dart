@@ -23,73 +23,77 @@ class PremiumScreen extends StatelessWidget {
             _buildCurrentPlanSection(colorScheme, colors, texts),
             SliverHeight(height: 20),
             // Plans Section
-            SliverPadding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  spacing: 15.h,
-                  children: [
-                    PlanCard(
-                      planTitle: "Starter",
-                      icon: Icons.webhook_outlined,
-                      func: () {},
-                      buttonText: "Get Starter",
-                      dreamCount: "1",
-                      mainColor: colors.blue,
-                      price: "2.99",
-                      priceCategory: "one-time",
-                      listOfWhys: [
-                        "Add 1 savings goal",
-                        "Full statistics & charts",
-                        "Color customization",
-                        "Progress tracking",
-                      ],
-                    ),
-                    PlanCard(
-                      planTitle: "Dream Pack",
-                      icon: Icons.whatshot,
-                      func: () {},
-                      buttonText: "Get Dream Pack",
-                      dreamCount: "3",
-                      mainColor: colors.purple,
-                      price: "5.00",
-                      priceCategory: "one-time",
-                      listOfWhys: [
-                        "Add 3 savings goals",
-                        "Full statistics & charts",
-                        "Color customization",
-                        "Progress tracking",
-                        "Priority support",
-                      ],
-                    ),
-                    PlanCard(
-                      planTitle: "Unlimited",
-                      icon: Icons.sunny,
-                      func: () {},
-                      buttonText: "Get Unlimited",
-                      dreamCount: "Unlimited",
-                      mainColor: colors.orange,
-                      price: "29.99",
-                      priceCategory: "lifetime",
-                      listOfWhys: [
-                        "Unlimited savings goals",
-                        "Full statistics & charts",
-                        "Color customization",
-                        "Progress tracking",
-                        "Priority support",
-                        "Early access to new features",
-                        "Lifetime updates",
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildPlanCardsSection(colors),
             SliverHeight(height: 35),
           ],
         ),
       ),
     );
+  }
+
+  SliverPadding _buildPlanCardsSection(AppColors colors) {
+    return SliverPadding(
+            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                spacing: 15.h,
+                children: [
+                  PlanCard(
+                    planTitle: "Starter",
+                    icon: Icons.webhook_outlined,
+                    func: () {},
+                    buttonText: "Get Starter",
+                    dreamCount: "1",
+                    mainColor: colors.blue,
+                    price: "2.99",
+                    priceCategory: "one-time",
+                    listOfWhys: [
+                      "Add 1 savings goal",
+                      "Full statistics & charts",
+                      "Color customization",
+                      "Progress tracking",
+                    ],
+                  ),
+                  PlanCard(
+                    planTitle: "Dream Pack",
+                    icon: Icons.whatshot,
+                    func: () {},
+                    buttonText: "Get Dream Pack",
+                    dreamCount: "3",
+                    mainColor: colors.purple,
+                    price: "5.00",
+                    priceCategory: "one-time",
+                    listOfWhys: [
+                      "Add 3 savings goals",
+                      "Full statistics & charts",
+                      "Color customization",
+                      "Progress tracking",
+                      "Priority support",
+                    ],
+                  ),
+                  PlanCard(
+                    planTitle: "Unlimited",
+                    icon: Icons.sunny,
+                    func: () {},
+                    buttonText: "Get Unlimited",
+                    dreamCount: "Unlimited",
+                    mainColor: colors.orange,
+                    price: "29.99",
+                    priceCategory: "lifetime",
+                    listOfWhys: [
+                      "Unlimited savings goals",
+                      "Full statistics & charts",
+                      "Color customization",
+                      "Progress tracking",
+                      "Priority support",
+                      "Early access to new features",
+                      "Lifetime updates",
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
   }
 
   SliverPadding _buildCurrentPlanSection(
