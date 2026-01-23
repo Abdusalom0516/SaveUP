@@ -20,6 +20,109 @@ class PremiumScreen extends StatelessWidget {
             SliverHeight(height: 20),
             // Current Plan Section
             _buildCurrentPlanSection(colorScheme, colors, texts),
+            SliverHeight(height: 20),
+            // Plans Section
+            SliverPadding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+              sliver: SliverToBoxAdapter(
+                child: Container(
+                  padding: EdgeInsets.all(16.r),
+                  decoration: BoxDecoration(
+                    color: colorScheme.tertiary.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: colorScheme.outline,
+                      width: 1.5.r,
+                    ),
+                  ),
+                  child: Column(
+                    spacing: 15.h,
+                    children: [
+                      Row(
+                        spacing: 15.w,
+                        children: [
+                          Container(
+                            height: 50.r,
+                            width: 50.r,
+                            decoration: BoxDecoration(
+                              color: colors.blue,
+                              borderRadius: BorderRadius.circular(16.r),
+                            ),
+                            child: Icon(
+                              Icons.star,
+                              color: colors.white,
+                              size: 24.r,
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              spacing: 3.h,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Starter",
+                                  style: AppTextStyles.roboto.medium(
+                                    fontSize: 18.sp,
+                                    color: colorScheme.primary,
+                                  ),
+                                ),
+                                Text(
+                                  "1 dream",
+                                  style: AppTextStyles.roboto.medium(
+                                    fontSize: 15.sp,
+                                    color: colorScheme.secondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "\$2.99",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 22.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                "one-time",
+                                style: AppTextStyles.roboto.regular(
+                                  fontSize: 15.sp,
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        spacing: 9.h,
+                        children: [
+                          PlanWhyRow(
+                            mainColor: colors.blue,
+                            title: "Add 1 savings goal",
+                          ),
+                          PlanWhyRow(
+                            mainColor: colors.blue,
+                            title: "Full statistics & charts",
+                          ),
+                          PlanWhyRow(
+                            mainColor: colors.blue,
+                            title: "Add 1 savings goal",
+                          ),
+                          PlanWhyRow(
+                            mainColor: colors.blue,
+                            title: "Add 1 savings goal",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             SliverHeight(height: 35),
           ],
         ),
@@ -27,110 +130,107 @@ class PremiumScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildCurrentPlanSection(ColorScheme colorScheme, AppColors colors, ConstTexts texts) {
+  SliverPadding _buildCurrentPlanSection(
+    ColorScheme colorScheme,
+    AppColors colors,
+    ConstTexts texts,
+  ) {
     return SliverPadding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.all(16.r),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiary.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: colorScheme.outline,
-                    width: 1.5.r,
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          padding: EdgeInsets.all(16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.tertiary.withValues(alpha: 0.3),
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: colorScheme.outline, width: 1.5.r),
+          ),
+          child: Column(
+            spacing: 15.h,
+            children: [
+              Row(
+                spacing: 15.w,
+                children: [
+                  Container(
+                    height: 50.r,
+                    width: 50.r,
+                    decoration: BoxDecoration(
+                      color: colors.purple,
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    child: Icon(Icons.star, color: colors.white, size: 24.r),
                   ),
+                  Column(
+                    spacing: 3.h,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        texts.currentPlan,
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 18.sp,
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                      Text(
+                        texts.freeVersion,
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 15.sp,
+                          color: colorScheme.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.all(10.r),
+                decoration: BoxDecoration(
+                  color: colorScheme.tertiary.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Column(
-                  spacing: 15.h,
+                  spacing: 5.h,
                   children: [
                     Row(
-                      spacing: 15.w,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 50.r,
-                          width: 50.r,
-                          decoration: BoxDecoration(
-                            color: colors.purple,
-                            borderRadius: BorderRadius.circular(16.r),
-                          ),
-                          child: Icon(
-                            Icons.star,
-                            color: colors.white,
-                            size: 24.r,
+                        Text(
+                          texts.freeVersion,
+                          style: AppTextStyles.roboto.medium(
+                            fontSize: 15.sp,
+                            color: colorScheme.secondary,
                           ),
                         ),
-                        Column(
-                          spacing: 3.h,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              texts.currentPlan,
-                              style: AppTextStyles.roboto.medium(
-                                fontSize: 18.sp,
-                                color: colorScheme.primary,
-                              ),
-                            ),
-                            Text(
-                              texts.freeVersion,
-                              style: AppTextStyles.roboto.medium(
-                                fontSize: 15.sp,
-                                color: colorScheme.secondary,
-                              ),
-                            ),
-                          ],
+                        Text(
+                          "1 / 2",
+                          style: AppTextStyles.roboto.medium(
+                            fontSize: 16.sp,
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10.r),
-                      decoration: BoxDecoration(
-                        color: colorScheme.tertiary.withValues(alpha: 0.4),
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Column(
-                        spacing: 5.h,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                texts.freeVersion,
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 15.sp,
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              Text(
-                                "1 / 2",
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 16.sp,
-                                  color: colorScheme.primary,
-                                ),
-                              ),
-                            ],
+                    Row(
+                      children: [
+                        Expanded(
+                          child: LinearProgressIndicator(
+                            value: 1 / 2,
+                            color: colors.purple,
+                            backgroundColor: colorScheme.tertiary,
+                            minHeight: 9.h,
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: LinearProgressIndicator(
-                                  value: 1 / 2,
-                                  color: colors.purple,
-                                  backgroundColor: colorScheme.tertiary,
-                                  minHeight: 9.h,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
-          );
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   SliverAppBar _buildAppBarSection(
@@ -176,6 +276,39 @@ class PremiumScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PlanWhyRow extends StatelessWidget {
+  const PlanWhyRow({super.key, required this.title, required this.mainColor});
+  final String title;
+  final Color mainColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppStateWrapper(
+      builder: (colors, texts, colorScheme) => Row(
+        spacing: 10.w,
+        children: [
+          Container(
+            height: 25.r,
+            width: 25.r,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: mainColor.withValues(alpha: 0.2),
+            ),
+            child: Icon(Icons.done, color: mainColor, size: 16.r),
+          ),
+          Text(
+            title,
+            style: AppTextStyles.roboto.regular(
+              fontSize: 14.sp,
+              color: colorScheme.primary,
+            ),
           ),
         ],
       ),
