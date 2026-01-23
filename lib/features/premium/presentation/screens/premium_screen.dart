@@ -3,6 +3,7 @@ import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/premium/presentation/widgets/plan_card_wd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,101 +26,62 @@ class PremiumScreen extends StatelessWidget {
             SliverPadding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
               sliver: SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.all(16.r),
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiary.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: colorScheme.outline,
-                      width: 1.5.r,
+                child: Column(
+                  spacing: 15.h,
+                  children: [
+                    PlanCard(
+                      planTitle: "Starter",
+                      icon: Icons.webhook_outlined,
+                      func: () {},
+                      buttonText: "Get Starter",
+                      dreamCount: "1",
+                      mainColor: colors.blue,
+                      price: "2.99",
+                      priceCategory: "one-time",
+                      listOfWhys: [
+                        "Add 1 savings goal",
+                        "Full statistics & charts",
+                        "Color customization",
+                        "Progress tracking",
+                      ],
                     ),
-                  ),
-                  child: Column(
-                    spacing: 15.h,
-                    children: [
-                      Row(
-                        spacing: 15.w,
-                        children: [
-                          Container(
-                            height: 50.r,
-                            width: 50.r,
-                            decoration: BoxDecoration(
-                              color: colors.blue,
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            child: Icon(
-                              Icons.star,
-                              color: colors.white,
-                              size: 24.r,
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              spacing: 3.h,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Starter",
-                                  style: AppTextStyles.roboto.medium(
-                                    fontSize: 18.sp,
-                                    color: colorScheme.primary,
-                                  ),
-                                ),
-                                Text(
-                                  "1 dream",
-                                  style: AppTextStyles.roboto.medium(
-                                    fontSize: 15.sp,
-                                    color: colorScheme.secondary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "\$2.99",
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 22.sp,
-                                  color: colorScheme.primary,
-                                ),
-                              ),
-                              Text(
-                                "one-time",
-                                style: AppTextStyles.roboto.regular(
-                                  fontSize: 15.sp,
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        spacing: 9.h,
-                        children: [
-                          PlanWhyRow(
-                            mainColor: colors.blue,
-                            title: "Add 1 savings goal",
-                          ),
-                          PlanWhyRow(
-                            mainColor: colors.blue,
-                            title: "Full statistics & charts",
-                          ),
-                          PlanWhyRow(
-                            mainColor: colors.blue,
-                            title: "Add 1 savings goal",
-                          ),
-                          PlanWhyRow(
-                            mainColor: colors.blue,
-                            title: "Add 1 savings goal",
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    PlanCard(
+                      planTitle: "Dream Pack",
+                      icon: Icons.whatshot,
+                      func: () {},
+                      buttonText: "Get Dream Pack",
+                      dreamCount: "3",
+                      mainColor: colors.purple,
+                      price: "5.00",
+                      priceCategory: "one-time",
+                      listOfWhys: [
+                        "Add 3 savings goals",
+                        "Full statistics & charts",
+                        "Color customization",
+                        "Progress tracking",
+                        "Priority support",
+                      ],
+                    ),
+                    PlanCard(
+                      planTitle: "Unlimited",
+                      icon: Icons.sunny,
+                      func: () {},
+                      buttonText: "Get Unlimited",
+                      dreamCount: "Unlimited",
+                      mainColor: colors.orange,
+                      price: "29.99",
+                      priceCategory: "lifetime",
+                      listOfWhys: [
+                        "Unlimited savings goals",
+                        "Full statistics & charts",
+                        "Color customization",
+                        "Progress tracking",
+                        "Priority support",
+                        "Early access to new features",
+                        "Lifetime updates",
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -283,35 +245,3 @@ class PremiumScreen extends StatelessWidget {
   }
 }
 
-class PlanWhyRow extends StatelessWidget {
-  const PlanWhyRow({super.key, required this.title, required this.mainColor});
-  final String title;
-  final Color mainColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppStateWrapper(
-      builder: (colors, texts, colorScheme) => Row(
-        spacing: 10.w,
-        children: [
-          Container(
-            height: 25.r,
-            width: 25.r,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: mainColor.withValues(alpha: 0.2),
-            ),
-            child: Icon(Icons.done, color: mainColor, size: 16.r),
-          ),
-          Text(
-            title,
-            style: AppTextStyles.roboto.regular(
-              fontSize: 14.sp,
-              color: colorScheme.primary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
