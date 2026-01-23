@@ -15,51 +15,85 @@ class PremiumScreen extends StatelessWidget {
       builder: (colors, texts, colorScheme) => Scaffold(
         body: CustomScrollView(
           slivers: [
+            // AppBar Section
             _buildAppBarSection(colorScheme, colors, texts),
             SliverHeight(height: 20),
-            SliverPadding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-              sliver: SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.all(16.r),
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiary.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: colorScheme.outline,
-                      width: 1.5.r,
-                    ),
+            // Current Plan Section
+            _buildCurrentPlanSection(colorScheme, colors, texts),
+            SliverHeight(height: 35),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverPadding _buildCurrentPlanSection(ColorScheme colorScheme, AppColors colors, ConstTexts texts) {
+    return SliverPadding(
+            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+            sliver: SliverToBoxAdapter(
+              child: Container(
+                padding: EdgeInsets.all(16.r),
+                decoration: BoxDecoration(
+                  color: colorScheme.tertiary.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: colorScheme.outline,
+                    width: 1.5.r,
                   ),
-                  child: Column(
-                    spacing: 10.h,
-                    children: [
-                      Row(
-                        spacing: 15.w,
-                        children: [
-                          Container(
-                            height: 50.r,
-                            width: 50.r,
-                            decoration: BoxDecoration(
-                              color: colors.purple,
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            child: Icon(
-                              Icons.star,
-                              color: colors.white,
-                              size: 24.r,
-                            ),
+                ),
+                child: Column(
+                  spacing: 15.h,
+                  children: [
+                    Row(
+                      spacing: 15.w,
+                      children: [
+                        Container(
+                          height: 50.r,
+                          width: 50.r,
+                          decoration: BoxDecoration(
+                            color: colors.purple,
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
-                          Column(
-                            spacing: 3.h,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                texts.currentPlan,
-                                style: AppTextStyles.roboto.medium(
-                                  fontSize: 18.sp,
-                                  color: colorScheme.primary,
-                                ),
+                          child: Icon(
+                            Icons.star,
+                            color: colors.white,
+                            size: 24.r,
+                          ),
+                        ),
+                        Column(
+                          spacing: 3.h,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              texts.currentPlan,
+                              style: AppTextStyles.roboto.medium(
+                                fontSize: 18.sp,
+                                color: colorScheme.primary,
                               ),
+                            ),
+                            Text(
+                              texts.freeVersion,
+                              style: AppTextStyles.roboto.medium(
+                                fontSize: 15.sp,
+                                color: colorScheme.secondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10.r),
+                      decoration: BoxDecoration(
+                        color: colorScheme.tertiary.withValues(alpha: 0.4),
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Column(
+                        spacing: 5.h,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                               Text(
                                 texts.freeVersion,
                                 style: AppTextStyles.roboto.medium(
@@ -67,23 +101,36 @@ class PremiumScreen extends StatelessWidget {
                                   color: colorScheme.secondary,
                                 ),
                               ),
+                              Text(
+                                "1 / 2",
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 16.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: LinearProgressIndicator(
+                                  value: 1 / 2,
+                                  color: colors.purple,
+                                  backgroundColor: colorScheme.tertiary,
+                                  minHeight: 9.h,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                ),
+                              ),
                             ],
                           ),
                         ],
                       ),
-                      Container(
-                        
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            SliverHeight(height: 35),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   SliverAppBar _buildAppBarSection(
