@@ -21,96 +21,7 @@ class SettingsScreen extends HookWidget {
           slivers: [
             _buildAppBar(colorScheme, colors, texts),
             SliverHeight(height: 20),
-            SliverPadding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-              sliver: SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.all(16.r),
-                  decoration: BoxDecoration(
-                    color: colorScheme.primaryContainer,
-                    border: Border.all(
-                      color: colorScheme.outline,
-                      width: 1.5.r,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    spacing: 10.r,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        texts.preview,
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 18.sp,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(12.r),
-                        decoration: BoxDecoration(
-                          color: colorScheme.tertiary.withValues(alpha: 0.4),
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Column(
-                          spacing: 15.h,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              spacing: 10.r,
-                              children: [
-                                Container(
-                                  height: 18.h,
-                                  width: 4.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    color: colors.purple,
-                                  ),
-                                ),
-                                Text(
-                                  texts.sampleGoal,
-                                  style: AppTextStyles.roboto.medium(
-                                    fontSize: 16.sp,
-                                    color: colorScheme.primary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              spacing: 6.h,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "\$5,000 / \$10,000",
-                                  style: AppTextStyles.roboto.regular(
-                                    fontSize: 16.sp,
-                                    color: colorScheme.primary,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: LinearProgressIndicator(
-                                        value: 0.75,
-                                        color: colors.purple,
-                                        backgroundColor: colorScheme.tertiary,
-                                        minHeight: 9.h,
-                                        borderRadius: BorderRadius.circular(
-                                          8.r,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            _buildPreviewSection(colorScheme, texts, colors),
             SliverHeight(height: 20),
             _buildThemeSection(colorScheme, colors, chosenColorIndex),
             SliverHeight(height: 20),
@@ -125,6 +36,99 @@ class SettingsScreen extends HookWidget {
         ),
       ),
     );
+  }
+
+  SliverPadding _buildPreviewSection(ColorScheme colorScheme, ConstTexts texts, AppColors colors) {
+    return SliverPadding(
+            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+            sliver: SliverToBoxAdapter(
+              child: Container(
+                padding: EdgeInsets.all(16.r),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer,
+                  border: Border.all(
+                    color: colorScheme.outline,
+                    width: 1.5.r,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  spacing: 10.r,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      texts.preview,
+                      style: AppTextStyles.roboto.medium(
+                        fontSize: 18.sp,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(12.r),
+                      decoration: BoxDecoration(
+                        color: colorScheme.tertiary.withValues(alpha: 0.4),
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Column(
+                        spacing: 15.h,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            spacing: 10.r,
+                            children: [
+                              Container(
+                                height: 18.h,
+                                width: 4.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  color: colors.purple,
+                                ),
+                              ),
+                              Text(
+                                texts.sampleGoal,
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 16.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            spacing: 6.h,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "\$5,000 / \$10,000",
+                                style: AppTextStyles.roboto.regular(
+                                  fontSize: 16.sp,
+                                  color: colorScheme.primary,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: LinearProgressIndicator(
+                                      value: 0.75,
+                                      color: colors.purple,
+                                      backgroundColor: colorScheme.tertiary,
+                                      minHeight: 9.h,
+                                      borderRadius: BorderRadius.circular(
+                                        8.r,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 
   SliverPadding _buildFontFamilySection(
