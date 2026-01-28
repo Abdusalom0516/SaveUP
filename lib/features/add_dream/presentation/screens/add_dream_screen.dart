@@ -3,6 +3,7 @@ import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/add_dream/presentation/widgets/colors_option_card_wd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,14 @@ class AddDreamScreen extends HookWidget {
             _buildAppBarSection(colorScheme, texts, colors),
             SliverHeight(height: 20),
             // Fields Section
-            _buildFieldsSection(colors, colorScheme, goalNameController, targetAmountController, startingAmountController, chosenColorIndex),
+            _buildFieldsSection(
+              colors,
+              colorScheme,
+              goalNameController,
+              targetAmountController,
+              startingAmountController,
+              chosenColorIndex,
+            ),
             SliverHeight(height: 35),
             // Create Dream Button Section
             _buildCreateDreamButtonSection(colorScheme),
@@ -36,126 +44,133 @@ class AddDreamScreen extends HookWidget {
 
   SliverPadding _buildCreateDreamButtonSection(ColorScheme colorScheme) {
     return SliverPadding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-            sliver: SliverToBoxAdapter(
-              child: Container(
-                height: 50.h,
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: colorScheme.primary,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: Text(
-                  "Create Goal",
-                  style: AppTextStyles.roboto.medium(
-                    fontSize: 15.sp,
-                    color: colorScheme.surface,
-                  ),
-                ),
-              ),
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Container(
+          height: 50.h,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: colorScheme.primary,
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Text(
+            "Create Goal",
+            style: AppTextStyles.roboto.medium(
+              fontSize: 15.sp,
+              color: colorScheme.surface,
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
 
-  SliverPadding _buildFieldsSection(AppColors colors, ColorScheme colorScheme, TextEditingController goalNameController, TextEditingController targetAmountController, TextEditingController startingAmountController, ValueNotifier<int> chosenColorIndex) {
+  SliverPadding _buildFieldsSection(
+    AppColors colors,
+    ColorScheme colorScheme,
+    TextEditingController goalNameController,
+    TextEditingController targetAmountController,
+    TextEditingController startingAmountController,
+    ValueNotifier<int> chosenColorIndex,
+  ) {
     return SliverPadding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                spacing: 25.h,
-                children: [
-                  _buildTitleWithTextfield(
-                    colors: colors,
-                    colorScheme: colorScheme,
-                    controller: goalNameController,
-                    hint: "Tarvel to Japan",
-                    mainIcon: Icons.account_tree_sharp,
-                    secondaryIcon: null,
-                    title: "Goal Name",
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Column(
+          spacing: 25.h,
+          children: [
+            _buildTitleWithTextfield(
+              colors: colors,
+              colorScheme: colorScheme,
+              controller: goalNameController,
+              hint: "Tarvel to Japan",
+              mainIcon: Icons.account_tree_sharp,
+              secondaryIcon: null,
+              title: "Goal Name",
+            ),
+            _buildTitleWithTextfield(
+              colors: colors,
+              colorScheme: colorScheme,
+              controller: targetAmountController,
+              hint: "25 000",
+              mainIcon: Icons.attach_money_outlined,
+              secondaryIcon: Icons.attach_money_outlined,
+              title: "Target Amount",
+            ),
+            _buildTitleWithTextfield(
+              colors: colors,
+              colorScheme: colorScheme,
+              controller: startingAmountController,
+              hint: "0",
+              mainIcon: Icons.attach_money_outlined,
+              secondaryIcon: Icons.attach_money_outlined,
+              title: "Starting Amoun",
+            ),
+            Column(
+              spacing: 7.h,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Color",
+                  style: AppTextStyles.roboto.medium(
+                    fontSize: 16.sp,
+                    color: colorScheme.secondary,
                   ),
-                  _buildTitleWithTextfield(
-                    colors: colors,
-                    colorScheme: colorScheme,
-                    controller: targetAmountController,
-                    hint: "25 000",
-                    mainIcon: Icons.attach_money_outlined,
-                    secondaryIcon: Icons.attach_money_outlined,
-                    title: "Target Amount",
-                  ),
-                  _buildTitleWithTextfield(
-                    colors: colors,
-                    colorScheme: colorScheme,
-                    controller: startingAmountController,
-                    hint: "0",
-                    mainIcon: Icons.attach_money_outlined,
-                    secondaryIcon: Icons.attach_money_outlined,
-                    title: "Starting Amoun",
-                  ),
-                  Column(
-                    spacing: 7.h,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Color",
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 16.sp,
-                          color: colorScheme.secondary,
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Wrap(
-                          runSpacing: 15.h,
-                          spacing: 10.w,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Wrap(
+                    runSpacing: 15.h,
+                    spacing: 10.w,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.start,
 
-                          children: [
-                            ColorOptionCard(
-                              mainColor: colors.purple,
-                              isChosen: chosenColorIndex.value == 0,
-                              func: () {
-                                chosenColorIndex.value = 0;
-                              },
-                            ),
-                            ColorOptionCard(
-                              mainColor: colors.blue,
-                              isChosen: chosenColorIndex.value == 1,
-                              func: () {
-                                chosenColorIndex.value = 1;
-                              },
-                            ),
-                            ColorOptionCard(
-                              mainColor: colors.pink,
-                              isChosen: chosenColorIndex.value == 2,
-                              func: () {
-                                chosenColorIndex.value = 2;
-                              },
-                            ),
-                            ColorOptionCard(
-                              mainColor: colors.green,
-                              isChosen: chosenColorIndex.value == 3,
-                              func: () {
-                                chosenColorIndex.value = 3;
-                              },
-                            ),
-                            ColorOptionCard(
-                              mainColor: colors.orange,
-                              isChosen: chosenColorIndex.value == 4,
-                              func: () {
-                                chosenColorIndex.value = 4;
-                              },
-                            ),
-                          ],
-                        ),
+                    children: [
+                      ColorsOptionCard(
+                        mainColor: colors.purple,
+                        isChosen: chosenColorIndex.value == 0,
+                        func: () {
+                          chosenColorIndex.value = 0;
+                        },
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.blue,
+                        isChosen: chosenColorIndex.value == 1,
+                        func: () {
+                          chosenColorIndex.value = 1;
+                        },
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.pink,
+                        isChosen: chosenColorIndex.value == 2,
+                        func: () {
+                          chosenColorIndex.value = 2;
+                        },
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.green,
+                        isChosen: chosenColorIndex.value == 3,
+                        func: () {
+                          chosenColorIndex.value = 3;
+                        },
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.orange,
+                        isChosen: chosenColorIndex.value == 4,
+                        func: () {
+                          chosenColorIndex.value = 4;
+                        },
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildTitleWithTextfield({
@@ -273,39 +288,6 @@ class AddDreamScreen extends HookWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ColorOptionCard extends StatelessWidget {
-  const ColorOptionCard({
-    super.key,
-    required this.mainColor,
-    required this.func,
-    required this.isChosen,
-  });
-  final Color mainColor;
-  final VoidCallback func;
-  final bool isChosen;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppStateWrapper(
-      builder: (colors, texts, colorScheme) => InkWell(
-        onTap: func,
-        child: Container(
-          height: 45.h,
-          width: 75.w,
-          decoration: BoxDecoration(
-            color: mainColor,
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(
-              color: isChosen ? colors.white : colors.transparent,
-              width: 2.5.r,
-            ),
-          ),
-        ),
       ),
     );
   }
