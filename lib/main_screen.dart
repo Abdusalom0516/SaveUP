@@ -1,4 +1,5 @@
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/add_dream/presentation/screens/add_dream_screen.dart';
 import 'package:boilerplate/features/home/presentation/screens/home_screen.dart';
 import 'package:boilerplate/features/premium/presentation/screens/premium_screen.dart';
 import 'package:boilerplate/features/settings/presentation/screens/settings_screen.dart';
@@ -22,7 +23,7 @@ class MainScreen extends HookWidget {
           children: [
             HomeScreen(),
             PremiumScreen(),
-            HomeScreen(),
+            AddDreamScreen(),
             SettingsScreen(),
           ],
         ),
@@ -45,8 +46,8 @@ class MainScreen extends HookWidget {
               BarItem(filledIcon: Icons.home, outlinedIcon: Icons.home),
               BarItem(filledIcon: Icons.star, outlinedIcon: Icons.star),
               BarItem(
-                filledIcon: Icons.add_rounded,
-                outlinedIcon: Icons.add_rounded,
+                filledIcon: Icons.add_circle_sharp,
+                outlinedIcon: Icons.add_circle_sharp,
               ),
               BarItem(filledIcon: Icons.settings, outlinedIcon: Icons.settings),
             ],
