@@ -23,6 +23,7 @@ class AddDreamScreen extends HookWidget {
             // App Bar Section
             _buildAppBarSection(colorScheme, texts, colors),
             SliverHeight(height: 20),
+            // Fields Section
             SliverPadding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
               sliver: SliverToBoxAdapter(
@@ -120,6 +121,29 @@ class AddDreamScreen extends HookWidget {
                 ),
               ),
             ),
+            SliverHeight(height: 35),
+            // Create Button Section
+            SliverPadding(
+              padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+              sliver: SliverToBoxAdapter(
+                child: Container(
+                  height: 50.h,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Text(
+                    "Create Goal",
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 15.sp,
+                      color: colorScheme.surface,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -180,10 +204,7 @@ class AddDreamScreen extends HookWidget {
               borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: colorScheme.outline, width: 1.5.r),
             ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 15.r,
-              horizontal: 12.r,
-            ),
+            contentPadding: EdgeInsets.all(12.r),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(color: colorScheme.outline, width: 1.5.r),
@@ -267,13 +288,13 @@ class ColorOptionCard extends StatelessWidget {
         onTap: func,
         child: Container(
           height: 45.h,
-          width: 70.w,
+          width: 75.w,
           decoration: BoxDecoration(
             color: mainColor,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
               color: isChosen ? colors.white : colors.transparent,
-              width: 1.5.r,
+              width: 2.5.r,
             ),
           ),
         ),
