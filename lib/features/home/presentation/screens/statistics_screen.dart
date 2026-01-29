@@ -22,7 +22,34 @@ class StatisticsScreen extends StatelessWidget {
             // Current Progress Section
             _buildCurrentProgressSection(colorScheme, colors),
             SliverHeight(height: 20),
-             SliverHeight(height: 35),
+            // Statistics Cards Section
+            _buildStatisticsCardsSection(colors),
+            SliverHeight(height: 35),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverPadding _buildStatisticsCardsSection(AppColors colors) {
+    return SliverPadding(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+      sliver: SliverToBoxAdapter(
+        child: Row(
+          spacing: 12.w,
+          children: [
+            StatisticsCard(
+              mainColor: colors.green,
+              icon: Icons.attach_money_rounded,
+              title: "Avg/Month",
+              subtitle: "\$1417",
+            ),
+            StatisticsCard(
+              mainColor: colors.orange,
+              icon: Icons.compare_arrows_outlined,
+              title: "Updates",
+              subtitle: "11",
+            ),
           ],
         ),
       ),
@@ -183,6 +210,68 @@ class StatisticsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class StatisticsCard extends StatelessWidget {
+  const StatisticsCard({
+    super.key,
+    required this.mainColor,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+  });
+  final Color mainColor;
+  final IconData icon;
+  final String title, subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppStateWrapper(
+      builder: (colors, texts, colorScheme) => Expanded(
+        child: Container(
+          padding: EdgeInsets.all(14.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer,
+            border: Border.all(color: colorScheme.outline, width: 1.3.r),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            spacing: 10.h,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                spacing: 10.w,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(7.r),
+                    decoration: BoxDecoration(
+                      color: mainColor.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Icon(icon, color: mainColor, size: 21.r),
+                  ),
+                  Text(
+                    title,
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 15.sp,
+                      color: colorScheme.secondary,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                subtitle,
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 23.sp,
+                  color: colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
