@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
+import 'package:boilerplate/core/utils/app_router.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/home/presentation/screens/statistics_screen.dart';
 import 'package:boilerplate/features/home/presentation/widgets/custom_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -201,9 +203,10 @@ class DreamCard extends StatelessWidget {
                   mainColor: colors.purple,
                 ),
                 CustomActionButton(
-                  title: texts.remove,
+                  title: texts.stats,
                   onTap: () {
-                    log("Remove Goal Tapped");
+                    log("Stats Goal Tapped");
+                    AppRouter.go(StatisticsScreen());
                   },
                   mainColor: colorScheme.tertiary,
                 ),
