@@ -21,22 +21,36 @@ class StatisticsScreen extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             // AppBar Section
-            _buildAppBarSection(colorScheme, colors, texts),
+            _buildAppBarSection(
+              colorScheme: colorScheme,
+              colors: colors,
+              texts: texts,
+            ),
             SliverHeight(height: 20),
             // Current Progress Section
-            _buildCurrentProgressSection(colorScheme, colors, texts),
+            _buildCurrentProgressSection(
+              colorScheme: colorScheme,
+              colors: colors,
+              texts: texts,
+            ),
             SliverHeight(height: 20),
             // Statistics Cards Section
-            _buildStatisticsCardsSection(colors, texts),
+            _buildStatisticsCardsSection(colors: colors, texts: texts),
             SliverHeight(height: 20),
             // Insights Section
-            _buildInsightsSection(colorScheme, texts),
+            _buildInsightsSection(colorScheme: colorScheme, texts: texts),
             SliverHeight(height: 20),
             // Contribution History Title Section
-            _buildContributionHistoryTitleSection(colorScheme, texts),
+            _buildContributionHistoryTitleSection(
+              colorScheme: colorScheme,
+              texts: texts,
+            ),
             SliverHeight(height: 15),
             // Contribution History Section
-            _buildContributionHistorySection(colorScheme, colors),
+            _buildContributionHistorySection(
+              colorScheme: colorScheme,
+              colors: colors,
+            ),
             SliverHeight(height: 30),
           ],
         ),
@@ -44,10 +58,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildContributionHistoryTitleSection(
-    ColorScheme colorScheme,
-    ConstTexts texts,
-  ) {
+  SliverPadding _buildContributionHistoryTitleSection({
+    required ColorScheme colorScheme,
+    required ConstTexts texts,
+  }) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -62,10 +76,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildContributionHistorySection(
-    ColorScheme colorScheme,
-    AppColors colors,
-  ) {
+  SliverPadding _buildContributionHistorySection({
+    required ColorScheme colorScheme,
+    required AppColors colors,
+  }) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverList.builder(
@@ -75,10 +89,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildInsightsSection(
-    ColorScheme colorScheme,
-    ConstTexts texts,
-  ) {
+  SliverPadding _buildInsightsSection({
+    required ColorScheme colorScheme,
+    required ConstTexts texts,
+  }) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -122,10 +136,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildStatisticsCardsSection(
-    AppColors colors,
-    ConstTexts texts,
-  ) {
+  SliverPadding _buildStatisticsCardsSection({
+    required AppColors colors,
+    required ConstTexts texts,
+  }) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -150,11 +164,11 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildCurrentProgressSection(
-    ColorScheme colorScheme,
-    AppColors colors,
-    ConstTexts texts,
-  ) {
+  SliverPadding _buildCurrentProgressSection({
+    required ColorScheme colorScheme,
+    required AppColors colors,
+    required ConstTexts texts,
+  }) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -235,11 +249,11 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverAppBar _buildAppBarSection(
-    ColorScheme colorScheme,
-    AppColors colors,
-    ConstTexts texts,
-  ) {
+  SliverAppBar _buildAppBarSection({
+    required ColorScheme colorScheme,
+    required AppColors colors,
+    required ConstTexts texts,
+  }) {
     return SliverAppBar(
       shape: Border(
         bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
