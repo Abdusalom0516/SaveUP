@@ -1,6 +1,7 @@
 import 'package:boilerplate/core/common/widgets/custom_height_wd.dart';
 import 'package:boilerplate/core/common/widgets/custom_sliver_height_wd.dart';
 import 'package:boilerplate/core/common/widgets/custom_width_wd.dart';
+import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
@@ -20,19 +21,19 @@ class StatisticsScreen extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             // AppBar Section
-            _buildAppBarSection(colorScheme, colors),
+            _buildAppBarSection(colorScheme, colors, texts),
             SliverHeight(height: 20),
             // Current Progress Section
-            _buildCurrentProgressSection(colorScheme, colors),
+            _buildCurrentProgressSection(colorScheme, colors, texts),
             SliverHeight(height: 20),
             // Statistics Cards Section
-            _buildStatisticsCardsSection(colors),
+            _buildStatisticsCardsSection(colors, texts),
             SliverHeight(height: 20),
             // Insights Section
-            _buildInsightsSection(colorScheme),
+            _buildInsightsSection(colorScheme, texts),
             SliverHeight(height: 20),
             // Contribution History Title Section
-            _buildContributionHistoryTitleSection(colorScheme),
+            _buildContributionHistoryTitleSection(colorScheme, texts),
             SliverHeight(height: 15),
             // Contribution History Section
             _buildContributionHistorySection(colorScheme, colors),
@@ -43,12 +44,15 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildContributionHistoryTitleSection(ColorScheme colorScheme) {
+  SliverPadding _buildContributionHistoryTitleSection(
+    ColorScheme colorScheme,
+    ConstTexts texts,
+  ) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
         child: Text(
-          "Contribution History",
+          texts.contributionHistory,
           style: AppTextStyles.roboto.medium(
             fontSize: 18.sp,
             color: colorScheme.primary,
@@ -71,7 +75,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildInsightsSection(ColorScheme colorScheme) {
+  SliverPadding _buildInsightsSection(
+    ColorScheme colorScheme,
+    ConstTexts texts,
+  ) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -87,7 +94,7 @@ class StatisticsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Insights",
+                texts.insights,
                 style: AppTextStyles.roboto.medium(
                   fontSize: 18.sp,
                   color: colorScheme.primary,
@@ -98,12 +105,12 @@ class StatisticsScreen extends StatelessWidget {
                 children: [
                   InsightsCard(
                     icon: Icons.star_purple500_outlined,
-                    title: "Best Month",
+                    title: texts.bestMonth,
                     subtitle: "Mar 2024 - \$1,700",
                   ),
                   InsightsCard(
                     icon: Icons.arrow_downward_rounded,
-                    title: "Lowest Month",
+                    title: texts.lowestMonth,
                     subtitle: "Jun 2024 - \$1,100",
                   ),
                 ],
@@ -115,7 +122,10 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildStatisticsCardsSection(AppColors colors) {
+  SliverPadding _buildStatisticsCardsSection(
+    AppColors colors,
+    ConstTexts texts,
+  ) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -125,13 +135,13 @@ class StatisticsScreen extends StatelessWidget {
             StatisticsCard(
               mainColor: colors.green,
               icon: Icons.attach_money_rounded,
-              title: "Avg/Month",
+              title: texts.avgMonth,
               subtitle: "\$1417",
             ),
             StatisticsCard(
               mainColor: colors.orange,
               icon: Icons.compare_arrows_outlined,
-              title: "Updates",
+              title: texts.updates,
               subtitle: "11",
             ),
           ],
@@ -143,6 +153,7 @@ class StatisticsScreen extends StatelessWidget {
   SliverPadding _buildCurrentProgressSection(
     ColorScheme colorScheme,
     AppColors colors,
+    ConstTexts texts,
   ) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
@@ -157,7 +168,7 @@ class StatisticsScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Current Progress",
+                texts.currentProgress,
                 style: AppTextStyles.roboto.medium(
                   fontSize: 15.sp,
                   color: colorScheme.secondary,
@@ -200,14 +211,14 @@ class StatisticsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "34.0% Complete",
+                        "34.0% ${texts.complete}",
                         style: AppTextStyles.roboto.medium(
                           fontSize: 15.sp,
                           color: colorScheme.primary.withValues(alpha: 0.5),
                         ),
                       ),
                       Text(
-                        "\$16,500 left",
+                        "\$16,500 ${texts.left}",
                         style: AppTextStyles.roboto.medium(
                           fontSize: 15.sp,
                           color: colorScheme.secondary,
@@ -224,7 +235,11 @@ class StatisticsScreen extends StatelessWidget {
     );
   }
 
-  SliverAppBar _buildAppBarSection(ColorScheme colorScheme, AppColors colors) {
+  SliverAppBar _buildAppBarSection(
+    ColorScheme colorScheme,
+    AppColors colors,
+    ConstTexts texts,
+  ) {
     return SliverAppBar(
       shape: Border(
         bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
@@ -284,7 +299,7 @@ class StatisticsScreen extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "Detailed Statistics",
+                  texts.detailedStatistics,
                   style: AppTextStyles.roboto.medium(
                     fontSize: 15.sp,
                     color: colorScheme.secondary,

@@ -34,7 +34,7 @@ class ContributionHistoryCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Total: \$1,500",
+                    "${texts.total}: \$1,500",
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.roboto.medium(
                       fontSize: 14.sp,
@@ -56,7 +56,7 @@ class ContributionHistoryCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "added",
+                  texts.added,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.roboto.medium(
                     fontSize: 14.sp,
@@ -71,4 +71,3 @@ class ContributionHistoryCard extends StatelessWidget {
     );
   }
 }
-
