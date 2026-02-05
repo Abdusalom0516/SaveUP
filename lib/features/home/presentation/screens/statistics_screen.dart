@@ -4,6 +4,7 @@ import 'package:boilerplate/core/common/widgets/custom_width_wd.dart';
 import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
+import 'package:boilerplate/core/utils/app_router.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/home/presentation/widgets/contribution_history_card_wd.dart';
 import 'package:boilerplate/features/home/presentation/widgets/insights_card_wd.dart';
@@ -267,7 +268,9 @@ class StatisticsScreen extends StatelessWidget {
         children: [
           Width(width: 16),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              AppRouter.close();
+            },
             child: Container(
               height: 40.r,
               width: 40.r,

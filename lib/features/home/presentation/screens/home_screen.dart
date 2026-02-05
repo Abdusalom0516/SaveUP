@@ -38,7 +38,7 @@ class HomeScreen extends HookWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.r),
       sliver: SliverList.builder(
         itemCount: 3,
-        itemBuilder: (context, index) => const DreamCard(),
+        itemBuilder: (context, index) => DreamCard(),
       ),
     );
   }
