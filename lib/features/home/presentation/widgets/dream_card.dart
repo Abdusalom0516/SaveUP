@@ -7,6 +7,7 @@ import 'package:boilerplate/core/utils/app_router.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/home/presentation/screens/statistics_screen.dart';
 import 'package:boilerplate/features/home/presentation/widgets/custom_action_button.dart';
+import 'package:boilerplate/features/home/presentation/widgets/quick_option_card_wd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -516,38 +517,6 @@ class DreamCard extends HookWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class QuickOptionCard extends StatelessWidget {
-  const QuickOptionCard({super.key, required this.amount, required this.func});
-  final int amount;
-  final VoidCallback func;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: AppStateWrapper(
-        builder: (colors, texts, colorScheme) => InkWell(
-          onTap: () {},
-          child: Container(
-            height: 40.h,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: colorScheme.tertiary.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Text(
-              "\$$amount",
-              style: AppTextStyles.roboto.medium(
-                fontSize: 14.sp,
-                color: colorScheme.primary,
-              ),
-            ),
           ),
         ),
       ),
