@@ -38,4 +38,11 @@ class ConstTexts {
   String currentPlan = "Current Plan";
   String freeVersion = "Free Version";
   String goalsUsed = "Goals Used";
+  String detailedStatistics = "Detailed Statistics";
+  String currentProgress = "Current Progress";
+  String left = "left";
+  String insights = "Insights";
+  String bestMonth = "Best Month";
+  String lowestMonth = "Unlock more dreams";
+  String added = "added";
 }

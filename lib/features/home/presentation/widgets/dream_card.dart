@@ -1,15 +1,24 @@
 import 'dart:developer';
+import 'package:boilerplate/core/common/widgets/custom_height_wd.dart';
+import 'package:boilerplate/core/constants/const_texts.dart';
+import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
+import 'package:boilerplate/core/utils/app_router.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/home/presentation/screens/statistics_screen.dart';
 import 'package:boilerplate/features/home/presentation/widgets/custom_action_button.dart';
+import 'package:boilerplate/features/home/presentation/widgets/quick_option_card_wd.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DreamCard extends StatelessWidget {
+class DreamCard extends HookWidget {
   const DreamCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isAdding = useState(true);
+    final amountController = useTextEditingController();
     return AppStateWrapper(
       builder: (colors, texts, colorScheme) => Container(
         margin: EdgeInsets.only(bottom: 15.h),
@@ -74,7 +83,7 @@ class DreamCard extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        log("Edit Goal Tapped");
+                        log("Update Card Clicked...");
                       },
                       child: Container(
                         height: 35.r,
@@ -196,14 +205,22 @@ class DreamCard extends StatelessWidget {
                 CustomActionButton(
                   title: texts.update,
                   onTap: () {
-                    log("Update Goal Tapped");
+                    updateSavingDialog(
+                      context,
+                      colorScheme,
+                      colors,
+                      isAdding,
+                      texts,
+                      amountController,
+                    );
                   },
                   mainColor: colors.purple,
                 ),
                 CustomActionButton(
-                  title: texts.remove,
+                  title: texts.stats,
                   onTap: () {
-                    log("Remove Goal Tapped");
+                    log("Stats Goal Tapped");
+                    AppRouter.go(StatisticsScreen());
                   },
                   mainColor: colorScheme.tertiary,
                 ),
@@ -224,6 +241,283 @@ class DreamCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> updateSavingDialog(
+    BuildContext context,
+    ColorScheme colorScheme,
+    AppColors colors,
+    ValueNotifier<bool> isAdding,
+    ConstTexts texts,
+    TextEditingController amountController,
+  ) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 0),
+        child: Container(
+          height: 450.h,
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(vertical: 16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primaryContainer,
+            border: Border.all(color: colorScheme.outline, width: 1.5.r),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+                child: Row(
+                  spacing: 15.w,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Update Savings",
+                            style: AppTextStyles.roboto.medium(
+                              fontSize: 18.sp,
+                              color: colorScheme.primary,
+                            ),
+                          ),
+                          Text(
+                            "Dream Car",
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.roboto.regular(
+                              fontSize: 16.sp,
+                              color: colorScheme.secondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        AppRouter.close();
+                      },
+                      child: Container(
+                        height: 40.r,
+                        width: 40.r,
+                        decoration: BoxDecoration(
+                          color: colorScheme.tertiary,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: colors.primaryDark,
+                          size: 21.r,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                color: colorScheme.outline,
+                thickness: 1.5.r,
+                height: 20.h,
+              ),
+              Height(height: 10),
+              Container(
+                height: 45.h,
+                margin: EdgeInsets.symmetric(horizontal: 16.r),
+                padding: EdgeInsets.all(4.r),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.r),
+                  color: colorScheme.tertiary.withValues(alpha: 0.2),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          isAdding.value = true;
+                        },
+                        child: Container(
+                          height: 45.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: isAdding.value
+                                ? colorScheme.tertiary.withValues(alpha: 0.6)
+                                : colors.transparent,
+                          ),
+                          child: Row(
+                            spacing: 7.w,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_rounded,
+                                size: 21.r,
+                                color: isAdding.value
+                                    ? colorScheme.primary
+                                    : colorScheme.secondary,
+                              ),
+                              Text(
+                                texts.add,
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: isAdding.value
+                                      ? colorScheme.primary
+                                      : colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          isAdding.value = false;
+                        },
+                        child: Container(
+                          height: 45.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            color: !isAdding.value
+                                ? colorScheme.tertiary.withValues(alpha: 0.6)
+                                : colors.transparent,
+                          ),
+                          child: Row(
+                            spacing: 7.w,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.remove_rounded,
+                                size: 21.r,
+                                color: !isAdding.value
+                                    ? colorScheme.primary
+                                    : colorScheme.secondary,
+                              ),
+                              Text(
+                                texts.remove,
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: !isAdding.value
+                                      ? colorScheme.primary
+                                      : colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Height(height: 15),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                child: Text(
+                  "Amount",
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.roboto.regular(
+                    fontSize: 16.sp,
+                    color: colorScheme.secondary,
+                  ),
+                ),
+              ),
+              Height(height: 5),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                child: TextField(
+                  controller: amountController,
+                  cursorColor: colorScheme.primary,
+                  style: AppTextStyles.roboto
+                      .medium(fontSize: 16.sp, color: colorScheme.primary)
+                      .copyWith(
+                        decoration: TextDecoration.none,
+                        decorationColor: colors.transparent,
+                        decorationThickness: 0,
+                      ),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.attach_money_outlined),
+                    hint: Text(
+                      "0.00",
+                      style: AppTextStyles.roboto.medium(
+                        fontSize: 16.sp,
+                        color: colorScheme.secondary,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: colorScheme.tertiary.withValues(alpha: 0.3),
+                    focusColor: colors.transparent,
+                    hoverColor: colors.transparent,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                      borderSide: BorderSide(
+                        color: colorScheme.tertiary,
+                        width: 1.5.r,
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.all(12.r),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                      borderSide: BorderSide(
+                        color: colorScheme.tertiary,
+                        width: 1.5.r,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Height(height: 15),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                child: Text(
+                  "Quick Select",
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.roboto.regular(
+                    fontSize: 16.sp,
+                    color: colorScheme.secondary,
+                  ),
+                ),
+              ),
+              Height(height: 5),
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+                child: Column(
+                  spacing: 8.h,
+                  children: [
+                    Row(
+                      spacing: 8.w,
+                      children: [
+                        QuickOptionCard(amount: 10, func: () {}),
+                        QuickOptionCard(amount: 25, func: () {}),
+                        QuickOptionCard(amount: 50, func: () {}),
+                      ],
+                    ),
+                    Row(
+                      spacing: 8.w,
+                      children: [
+                        QuickOptionCard(amount: 100, func: () {}),
+                        QuickOptionCard(amount: 250, func: () {}),
+                        QuickOptionCard(amount: 500, func: () {}),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Height(height: 20),
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
+                child: CustomActionButton(
+                  title: "Add \$10",
+                  onTap: () {},
+                  mainColor: colors.purple,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
