@@ -211,7 +211,7 @@ class DreamCard extends HookWidget {
                           vertical: 0,
                         ),
                         child: Container(
-                          height: 400.h,
+                          height: 450.h,
                           width: double.infinity,
                           padding: EdgeInsets.symmetric(vertical: 16.r),
                           decoration: BoxDecoration(
@@ -223,6 +223,7 @@ class DreamCard extends HookWidget {
                             borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: EdgeInsetsGeometry.symmetric(
@@ -386,7 +387,19 @@ class DreamCard extends HookWidget {
                                   ],
                                 ),
                               ),
-                              Height(height: 20),
+                              Height(height: 15),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                                child: Text(
+                                  "Amount",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyles.roboto.regular(
+                                    fontSize: 16.sp,
+                                    color: colorScheme.secondary,
+                                  ),
+                                ),
+                              ),
+                              Height(height: 5),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 16.r),
                                 child: TextField(
@@ -437,7 +450,19 @@ class DreamCard extends HookWidget {
                                   ),
                                 ),
                               ),
-                              Height(height: 20),
+                              Height(height: 15),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                                child: Text(
+                                  "Quick Select",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyles.roboto.regular(
+                                    fontSize: 16.sp,
+                                    color: colorScheme.secondary,
+                                  ),
+                                ),
+                              ),
+                              Height(height: 5),
                               Padding(
                                 padding: EdgeInsetsGeometry.symmetric(
                                   horizontal: 16.r,
@@ -448,12 +473,31 @@ class DreamCard extends HookWidget {
                                     Row(
                                       spacing: 8.w,
                                       children: [
-                                        QuickOptionCard(),
-                                        QuickOptionCard(),
-                                        QuickOptionCard(),
+                                        QuickOptionCard(amount: 10),
+                                        QuickOptionCard(amount: 25),
+                                        QuickOptionCard(amount: 50),
+                                      ],
+                                    ),
+                                    Row(
+                                      spacing: 8.w,
+                                      children: [
+                                        QuickOptionCard(amount: 100),
+                                        QuickOptionCard(amount: 250),
+                                        QuickOptionCard(amount: 500),
                                       ],
                                     ),
                                   ],
+                                ),
+                              ),
+                              Height(height: 20),
+                              Padding(
+                                padding: EdgeInsetsGeometry.symmetric(
+                                  horizontal: 16.r,
+                                ),
+                                child: CustomActionButton(
+                                  title: "Add \$10",
+                                  onTap: () {},
+                                  mainColor: colors.purple,
                                 ),
                               ),
                             ],
@@ -496,7 +540,8 @@ class DreamCard extends HookWidget {
 }
 
 class QuickOptionCard extends StatelessWidget {
-  const QuickOptionCard({super.key});
+  const QuickOptionCard({super.key, required this.amount});
+  final int amount;
 
   @override
   Widget build(BuildContext context) {
@@ -512,7 +557,7 @@ class QuickOptionCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Text(
-              "\$10",
+              "\$$amount",
               style: AppTextStyles.roboto.medium(
                 fontSize: 14.sp,
                 color: colorScheme.primary,
