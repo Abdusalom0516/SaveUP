@@ -15,6 +15,7 @@ class DreamCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isAdding = useState(true);
+    final amountController = useTextEditingController();
     return AppStateWrapper(
       builder: (colors, texts, colorScheme) => Container(
         margin: EdgeInsets.only(bottom: 15.h),
@@ -245,7 +246,7 @@ class DreamCard extends HookWidget {
                                           Text(
                                             "Dream Car",
                                             overflow: TextOverflow.ellipsis,
-                                            style: AppTextStyles.roboto.medium(
+                                            style: AppTextStyles.roboto.regular(
                                               fontSize: 16.sp,
                                               color: colorScheme.secondary,
                                             ),
@@ -385,6 +386,76 @@ class DreamCard extends HookWidget {
                                   ],
                                 ),
                               ),
+                              Height(height: 20),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.r),
+                                child: TextField(
+                                  controller: amountController,
+                                  cursorColor: colorScheme.primary,
+                                  style: AppTextStyles.roboto
+                                      .medium(
+                                        fontSize: 16.sp,
+                                        color: colorScheme.primary,
+                                      )
+                                      .copyWith(
+                                        decoration: TextDecoration.none,
+                                        decorationColor: colors.transparent,
+                                        decorationThickness: 0,
+                                      ),
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.attach_money_outlined,
+                                    ),
+                                    hint: Text(
+                                      "0.00",
+                                      style: AppTextStyles.roboto.medium(
+                                        fontSize: 16.sp,
+                                        color: colorScheme.secondary,
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: colorScheme.tertiary.withValues(
+                                      alpha: 0.3,
+                                    ),
+                                    focusColor: colors.transparent,
+                                    hoverColor: colors.transparent,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      borderSide: BorderSide(
+                                        color: colorScheme.tertiary,
+                                        width: 1.5.r,
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.all(12.r),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      borderSide: BorderSide(
+                                        color: colorScheme.tertiary,
+                                        width: 1.5.r,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Height(height: 20),
+                              Padding(
+                                padding: EdgeInsetsGeometry.symmetric(
+                                  horizontal: 16.r,
+                                ),
+                                child: Column(
+                                  spacing: 8.h,
+                                  children: [
+                                    Row(
+                                      spacing: 8.w,
+                                      children: [
+                                        QuickOptionCard(),
+                                        QuickOptionCard(),
+                                        QuickOptionCard(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -418,6 +489,36 @@ class DreamCard extends HookWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class QuickOptionCard extends StatelessWidget {
+  const QuickOptionCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: AppStateWrapper(
+        builder: (colors, texts, colorScheme) => InkWell(
+          onTap: () {},
+          child: Container(
+            height: 40.h,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: colorScheme.tertiary.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Text(
+              "\$10",
+              style: AppTextStyles.roboto.medium(
+                fontSize: 14.sp,
+                color: colorScheme.primary,
+              ),
+            ),
+          ),
         ),
       ),
     );
