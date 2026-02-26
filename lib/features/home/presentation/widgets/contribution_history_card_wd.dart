@@ -4,7 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContributionHistoryCard extends StatelessWidget {
-  const ContributionHistoryCard({super.key});
+  const ContributionHistoryCard({
+    super.key,
+    required this.month,
+    required this.totalLabel,
+    required this.amountLabel,
+    required this.isAdding,
+    required this.dotColor,
+  });
+
+  final String month;
+  final String totalLabel;
+  final String amountLabel;
+  final bool isAdding;
+  final Color dotColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +33,13 @@ class ContributionHistoryCard extends StatelessWidget {
         child: Row(
           spacing: 15.w,
           children: [
-            Icon(Icons.circle, color: colors.purple, size: 13.r),
+            Icon(Icons.circle, color: dotColor, size: 13.r),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Apr 2024",
+                    month,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.roboto.medium(
                       fontSize: 16.sp,
@@ -34,7 +47,7 @@ class ContributionHistoryCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${texts.total}: \$1,500",
+                    totalLabel,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.roboto.medium(
                       fontSize: 14.sp,
@@ -48,15 +61,15 @@ class ContributionHistoryCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "+\$1,600",
+                  amountLabel,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.roboto.medium(
                     fontSize: 16.sp,
-                    color: colorScheme.primary,
+                    color: isAdding ? colors.green : colors.red,
                   ),
                 ),
                 Text(
-                  texts.added,
+                  isAdding ? texts.added : texts.remove.toLowerCase(),
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.roboto.medium(
                     fontSize: 14.sp,
