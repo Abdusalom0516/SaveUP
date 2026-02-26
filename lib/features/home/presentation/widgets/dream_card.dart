@@ -755,28 +755,32 @@ class _EditDreamDialog extends HookWidget {
                 ),
               ),
               SizedBox(height: 4.h),
-              CustomActionButton(
-                title: "Save Changes",
-                onTap: () {
-                  final name = nameController.text.trim();
-                  final target = double.tryParse(targetController.text.replaceAll(',', '')) ?? 0;
-                  if (name.isEmpty || target <= 0) return;
-                  cubit.updateDream(dream.copyWith(
-                    name: name,
-                    targetAmount: target,
-                    colorIndex: colorIndex.value,
-                    deadline: deadline.value,
-                  ));
-                  AppRouter.close();
-                  toastification.show(
-                    context: context,
-                    type: ToastificationType.success,
-                    style: ToastificationStyle.flat,
-                    title: const Text('Goal updated!'),
-                    autoCloseDuration: const Duration(seconds: 2),
-                  );
-                },
-                mainColor: colors.purple,
+              Row(
+                children: [
+                  CustomActionButton(
+                    title: "Save Changes",
+                    onTap: () {
+                      final name = nameController.text.trim();
+                      final target = double.tryParse(targetController.text.replaceAll(',', '')) ?? 0;
+                      if (name.isEmpty || target <= 0) return;
+                      cubit.updateDream(dream.copyWith(
+                        name: name,
+                        targetAmount: target,
+                        colorIndex: colorIndex.value,
+                        deadline: deadline.value,
+                      ));
+                      AppRouter.close();
+                      toastification.show(
+                        context: context,
+                        type: ToastificationType.success,
+                        style: ToastificationStyle.flat,
+                        title: const Text('Goal updated!'),
+                        autoCloseDuration: const Duration(seconds: 2),
+                      );
+                    },
+                    mainColor: colors.purple,
+                  ),
+                ],
               ),
             ],
           ),
