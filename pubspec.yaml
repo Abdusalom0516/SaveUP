@@ -57,6 +57,7 @@ dependencies:
   easy_localization: ^3.0.8
   flutter_launcher_icons: ^0.14.4
   water_drop_nav_bar: ^2.2.2
+  fl_chart: ^0.70.2
 
 dev_dependencies:
   flutter_test:

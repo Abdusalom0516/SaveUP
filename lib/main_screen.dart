@@ -21,10 +21,12 @@ class MainScreen extends HookWidget {
           controller: pageController,
           physics: NeverScrollableScrollPhysics(),
           children: [
-            HomeScreen(),
-            PremiumScreen(),
-            AddDreamScreen(),
-            SettingsScreen(),
+            const HomeScreen(),
+            const PremiumScreen(),
+            AddDreamScreen(
+              onGoalCreated: () => pageController.jumpToPage(0),
+            ),
+            const SettingsScreen(),
           ],
         ),
         bottomNavigationBar: Container(

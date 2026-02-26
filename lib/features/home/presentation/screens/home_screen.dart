@@ -4,41 +4,92 @@ import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
+import 'package:boilerplate/features/home/data/models/model.dart';
+import 'package:boilerplate/features/home/presentation/blocs/bloc.dart';
 import 'package:boilerplate/features/home/presentation/widgets/dream_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+String _fmt(double amount) {
+  if (amount >= 1000) return '\$${NumberFormat('#,##0', 'en_US').format(amount)}';
+  return '\$${amount.toStringAsFixed(0)}';
+}
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AppStateWrapper(
-        builder: (colors, texts, colorScheme) => CustomScrollView(
-          slivers: [
-            // AppBar Section
-            _buildAppBarSection(texts, colorScheme, colors),
-            SliverHeight(height: 20),
-            // Overview Section
-            _buildOverviewSection(colorScheme, texts, colors),
-            SliverHeight(height: 20),
-            // Dreams List Section
-            _buildDreamsListSection(),
-            SliverHeight(height: 35),
-          ],
-        ),
-      ),
+    return BlocBuilder<DreamsCubit, DreamsState>(
+      builder: (context, state) {
+        final loaded = state is DreamsLoaded ? state : null;
+        return Scaffold(
+          body: AppStateWrapper(
+            builder: (colors, texts, colorScheme) => CustomScrollView(
+              slivers: [
+                _buildAppBarSection(texts, colorScheme, colors, loaded),
+                SliverHeight(height: 20),
+                _buildOverviewSection(colorScheme, texts, colors, loaded),
+                SliverHeight(height: 20),
+                _buildDreamsListSection(state, colors, colorScheme),
+                SliverHeight(height: 35),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  SliverPadding _buildDreamsListSection() {
+  Widget _buildDreamsListSection(
+    DreamsState state,
+    AppColors colors,
+    ColorScheme colorScheme,
+  ) {
+    if (state is DreamsLoading) {
+      return SliverToBoxAdapter(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 60.h),
+            child: CircularProgressIndicator(color: colors.purple),
+          ),
+        ),
+      );
+    }
+
+    if (state is DreamsLoaded && state.dreams.isEmpty) {
+      return SliverToBoxAdapter(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: 60.h),
+            child: Column(
+              spacing: 12.h,
+              children: [
+                Icon(Icons.savings_outlined, size: 56.r, color: colorScheme.secondary),
+                Text(
+                  "No goals yet",
+                  style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary),
+                ),
+                Text(
+                  "Tap + to create your first savings goal",
+                  style: AppTextStyles.roboto.regular(fontSize: 14.sp, color: colorScheme.secondary),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    final dreams = state is DreamsLoaded ? state.dreams : <DreamModel>[];
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
       sliver: SliverList.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) => DreamCard(),
+        itemCount: dreams.length,
+        itemBuilder: (context, index) => DreamCard(dream: dreams[index]),
       ),
     );
   }
@@ -47,7 +98,14 @@ class HomeScreen extends HookWidget {
     ColorScheme colorScheme,
     ConstTexts texts,
     AppColors colors,
+    DreamsLoaded? loaded,
   ) {
+    final totalSaved = loaded?.totalSaved ?? 0;
+    final totalTarget = loaded?.totalTarget ?? 0;
+    final overallProgress = loaded?.overallProgress ?? 0;
+    final overallPercent = loaded?.overallPercent ?? 0;
+    final goalCount = loaded?.dreams.length ?? 0;
+
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -66,17 +124,11 @@ class HomeScreen extends HookWidget {
                 children: [
                   Text(
                     texts.overview,
-                    style: AppTextStyles.roboto.medium(
-                      fontSize: 16.sp,
-                      color: colorScheme.primary,
-                    ),
+                    style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.primary),
                   ),
                   Text(
-                    "2 ${texts.goalsLower} • \$450 ${texts.savedLower}",
-                    style: AppTextStyles.roboto.medium(
-                      fontSize: 14.sp,
-                      color: colorScheme.secondary,
-                    ),
+                    "$goalCount ${texts.goalsLower} • ${_fmt(totalSaved)} ${texts.savedLower}",
+                    style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
                   ),
                 ],
               ),
@@ -88,17 +140,11 @@ class HomeScreen extends HookWidget {
                     children: [
                       Text(
                         texts.totalProgress,
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 14.sp,
-                          color: colorScheme.secondary,
-                        ),
+                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
                       ),
                       Text(
-                        "\$69.000",
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 20.sp,
-                          color: colorScheme.primary,
-                        ),
+                        _fmt(totalSaved),
+                        style: AppTextStyles.roboto.medium(fontSize: 20.sp, color: colorScheme.primary),
                       ),
                     ],
                   ),
@@ -106,7 +152,7 @@ class HomeScreen extends HookWidget {
                     children: [
                       Expanded(
                         child: LinearProgressIndicator(
-                          value: 0.37,
+                          value: overallProgress,
                           color: colors.purple,
                           backgroundColor: colorScheme.tertiary,
                           minHeight: 9.h,
@@ -119,18 +165,12 @@ class HomeScreen extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "37%",
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 14.sp,
-                          color: colorScheme.secondary,
-                        ),
+                        "$overallPercent%",
+                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
                       ),
                       Text(
-                        "${texts.of} \$185.000",
-                        style: AppTextStyles.roboto.medium(
-                          fontSize: 14.sp,
-                          color: colorScheme.secondary,
-                        ),
+                        "${texts.of} ${_fmt(totalTarget)}",
+                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
                       ),
                     ],
                   ),
@@ -147,11 +187,11 @@ class HomeScreen extends HookWidget {
     ConstTexts texts,
     ColorScheme colorScheme,
     AppColors colors,
+    DreamsLoaded? loaded,
   ) {
+    final totalSaved = loaded?.totalSaved ?? 0;
     return SliverAppBar(
-      shape: Border(
-        bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
-      ),
+      shape: Border(bottom: BorderSide(color: colorScheme.outline, width: 1.5.r)),
       floating: true,
       pinned: true,
       toolbarHeight: 70.h,
@@ -160,20 +200,9 @@ class HomeScreen extends HookWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
-            child: Image.asset(
-              ConstImgPaths.mainLogo,
-              height: 50.r,
-              width: 50.r,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(ConstImgPaths.mainLogo, height: 50.r, width: 50.r, fit: BoxFit.cover),
           ),
-          Text(
-            texts.appName,
-            style: AppTextStyles.roboto.bold(
-              fontSize: 21.sp,
-              color: colorScheme.primary,
-            ),
-          ),
+          Text(texts.appName, style: AppTextStyles.roboto.bold(fontSize: 21.sp, color: colorScheme.primary)),
         ],
       ),
       actions: [
@@ -183,17 +212,11 @@ class HomeScreen extends HookWidget {
           decoration: BoxDecoration(
             color: colors.purple.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(
-              color: colors.purple.withValues(alpha: 0.5),
-              width: 1.3.r,
-            ),
+            border: Border.all(color: colors.purple.withValues(alpha: 0.5), width: 1.3.r),
           ),
           child: Text(
-            "\$69.000",
-            style: AppTextStyles.roboto.medium(
-              fontSize: 16.sp,
-              color: colors.purple,
-            ),
+            _fmt(totalSaved),
+            style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colors.purple),
           ),
         ),
       ],
