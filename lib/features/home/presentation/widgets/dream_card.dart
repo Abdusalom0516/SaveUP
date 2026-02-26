@@ -608,7 +608,7 @@ class _UpdateSavingsDialog extends HookWidget {
                     autoCloseDuration: const Duration(seconds: 2),
                   );
                 },
-                mainColor: colors.purple,
+                mainColor: colors.accent,
               ),
             ),
           ],

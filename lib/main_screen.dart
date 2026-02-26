@@ -42,7 +42,7 @@ class MainScreen extends HookWidget {
               navigationIndex.value = index;
               pageController.jumpToPage(index);
             },
-            waterDropColor: colors.purple,
+            waterDropColor: colors.accent,
             selectedIndex: navigationIndex.value,
             barItems: [
               BarItem(filledIcon: Icons.home, outlinedIcon: Icons.home),

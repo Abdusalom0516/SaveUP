@@ -54,7 +54,7 @@ class HomeScreen extends HookWidget {
         child: Center(
           child: Padding(
             padding: EdgeInsets.only(top: 60.h),
-            child: CircularProgressIndicator(color: colors.purple),
+            child: CircularProgressIndicator(color: colors.accent),
           ),
         ),
       );
@@ -153,7 +153,7 @@ class HomeScreen extends HookWidget {
                       Expanded(
                         child: LinearProgressIndicator(
                           value: overallProgress,
-                          color: colors.purple,
+                          color: colors.accent,
                           backgroundColor: colorScheme.tertiary,
                           minHeight: 9.h,
                           borderRadius: BorderRadius.circular(8.r),
@@ -210,13 +210,13 @@ class HomeScreen extends HookWidget {
           margin: EdgeInsets.only(right: 16.r),
           padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 5.r),
           decoration: BoxDecoration(
-            color: colors.purple.withValues(alpha: 0.1),
+            color: colors.accent.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: colors.purple.withValues(alpha: 0.5), width: 1.3.r),
+            border: Border.all(color: colors.accent.withValues(alpha: 0.5), width: 1.3.r),
           ),
           child: Text(
             _fmt(totalSaved),
-            style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colors.purple),
+            style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colors.accent),
           ),
         ),
       ],
