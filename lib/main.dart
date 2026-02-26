@@ -2,6 +2,7 @@ import 'package:boilerplate/core/design_system/app_theme.dart';
 import 'package:boilerplate/core/utils/app_router.dart';
 import 'package:boilerplate/core/utils/theme_manager.dart';
 import 'package:boilerplate/features/home/presentation/blocs/bloc.dart';
+import 'package:boilerplate/features/settings/presentation/blocs/settings_cubit.dart';
 import 'package:boilerplate/infrastructure/injector/injector.dart';
 import 'package:boilerplate/main_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeManagerCubit()),
         BlocProvider(create: (_) => sl<DreamsCubit>()..loadDreams()),
+        BlocProvider(create: (_) => sl<SettingsCubit>()),
       ],
       child: BlocBuilder<ThemeManagerCubit, ThemeMode>(
         builder: (context, state) => ScreenUtilInit(

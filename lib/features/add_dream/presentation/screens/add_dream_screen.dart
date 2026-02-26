@@ -348,7 +348,7 @@ class AddDreamScreen extends HookWidget {
           Container(
             height: 50.r,
             width: 50.r,
-            decoration: BoxDecoration(color: colors.purple, borderRadius: BorderRadius.circular(16.r)),
+            decoration: BoxDecoration(color: colors.accent, borderRadius: BorderRadius.circular(16.r)),
             child: Icon(Icons.keyboard_command_key_rounded, color: colors.white, size: 24.r),
           ),
           Column(

@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static int _colorIndex = 0;
+  static void setColorIndex(int i) => _colorIndex = i;
+
+  // Dynamic accent — changes with the user's chosen color theme
+  Color get accent {
+    switch (_colorIndex) {
+      case 1:
+        return blue;
+      case 2:
+        return green;
+      case 3:
+        return orange;
+      case 4:
+        return pink;
+      case 5:
+        return teal;
+      default:
+        return purple;
+    }
+  }
+
   // THEME COLORS
   final Color backgroundDark = Color(0xFF0E172B);
   final Color primaryDark = Color(0xFFFFFFFF);
