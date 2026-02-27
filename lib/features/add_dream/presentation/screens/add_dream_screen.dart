@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:toastification/toastification.dart';
 
 class AddDreamScreen extends HookWidget {
@@ -23,7 +22,6 @@ class AddDreamScreen extends HookWidget {
     final targetAmountController = useTextEditingController();
     final startingAmountController = useTextEditingController();
     final chosenColorIndex = useState(0);
-    final chosenDeadline = useState<DateTime?>(null);
 
     return AppStateWrapper(
       builder: (colors, texts, colorScheme) => Scaffold(
@@ -38,7 +36,6 @@ class AddDreamScreen extends HookWidget {
               targetAmountController,
               startingAmountController,
               chosenColorIndex,
-              chosenDeadline,
               context,
             ),
             SliverHeight(height: 35),
@@ -51,7 +48,6 @@ class AddDreamScreen extends HookWidget {
                 targetAmountController,
                 startingAmountController,
                 chosenColorIndex.value,
-                chosenDeadline.value,
               ),
             ),
             SliverHeight(height: 40),
@@ -67,7 +63,6 @@ class AddDreamScreen extends HookWidget {
     TextEditingController targetCtrl,
     TextEditingController startCtrl,
     int colorIndex,
-    DateTime? deadline,
   ) {
     final name = nameCtrl.text.trim();
     final target = double.tryParse(targetCtrl.text.replaceAll(',', '')) ?? 0;
@@ -81,17 +76,12 @@ class AddDreamScreen extends HookWidget {
       _showError(context, 'Please enter a valid target amount.');
       return;
     }
-    if (deadline == null) {
-      _showError(context, 'Please select a deadline.');
-      return;
-    }
 
     context.read<DreamsCubit>().createDream(
           name: name,
           targetAmount: target,
           startingAmount: start,
           colorIndex: colorIndex,
-          deadline: deadline,
         );
 
     nameCtrl.clear();
@@ -158,7 +148,6 @@ class AddDreamScreen extends HookWidget {
     TextEditingController targetAmountController,
     TextEditingController startingAmountController,
     ValueNotifier<int> chosenColorIndex,
-    ValueNotifier<DateTime?> chosenDeadline,
     BuildContext context,
   ) {
     return SliverPadding(
@@ -195,58 +184,6 @@ class AddDreamScreen extends HookWidget {
               secondaryIcon: Icons.attach_money_outlined,
               title: "Starting Amount",
               keyboardType: TextInputType.number,
-            ),
-            Column(
-              spacing: 7.h,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  spacing: 8.w,
-                  children: [
-                    Icon(Icons.calendar_month_outlined, color: colorScheme.secondary, size: 21.r),
-                    Text(
-                      "Deadline",
-                      style: AppTextStyles.roboto.medium(fontSize: 15.sp, color: colorScheme.secondary),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () async {
-                    final picked = await showDatePicker(
-                      context: context,
-                      initialDate: chosenDeadline.value ?? DateTime.now().add(const Duration(days: 365)),
-                      firstDate: DateTime.now().add(const Duration(days: 1)),
-                      lastDate: DateTime.now().add(const Duration(days: 365 * 20)),
-                    );
-                    if (picked != null) chosenDeadline.value = picked;
-                  },
-                  borderRadius: BorderRadius.circular(12.r),
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(12.r),
-                    decoration: BoxDecoration(
-                      color: colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: colorScheme.outline, width: 1.5.r),
-                    ),
-                    child: Row(
-                      spacing: 8.w,
-                      children: [
-                        Icon(Icons.calendar_today_outlined, color: colorScheme.secondary, size: 18.r),
-                        Text(
-                          chosenDeadline.value == null
-                              ? "Select deadline..."
-                              : DateFormat('MMMM d, yyyy').format(chosenDeadline.value!),
-                          style: AppTextStyles.roboto.medium(
-                            fontSize: 16.sp,
-                            color: chosenDeadline.value == null ? colorScheme.secondary : colorScheme.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
             ),
             Column(
               spacing: 7.h,

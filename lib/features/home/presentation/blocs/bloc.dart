@@ -64,7 +64,6 @@ class DreamsCubit extends Cubit<DreamsState> {
     required double targetAmount,
     required double startingAmount,
     required int colorIndex,
-    required DateTime deadline,
   }) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final clamped = startingAmount.clamp(0.0, targetAmount);
@@ -74,7 +73,6 @@ class DreamsCubit extends Cubit<DreamsState> {
       targetAmount: targetAmount,
       currentAmount: clamped,
       colorIndex: colorIndex,
-      deadline: deadline,
       createdAt: DateTime.now(),
       contributions: clamped > 0
           ? [

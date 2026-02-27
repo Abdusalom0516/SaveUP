@@ -60,7 +60,11 @@ class HomeScreen extends HookWidget {
       );
     }
 
-    if (state is DreamsLoaded && state.dreams.isEmpty) {
+    final activeDreams = state is DreamsLoaded
+        ? state.dreams.where((d) => !d.isCompleted).toList()
+        : <DreamModel>[];
+
+    if (state is DreamsLoaded && activeDreams.isEmpty) {
       return SliverToBoxAdapter(
         child: Center(
           child: Padding(
@@ -70,7 +74,7 @@ class HomeScreen extends HookWidget {
               children: [
                 Icon(Icons.savings_outlined, size: 56.r, color: colorScheme.secondary),
                 Text(
-                  "No goals yet",
+                  "No active goals",
                   style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary),
                 ),
                 Text(
@@ -84,12 +88,11 @@ class HomeScreen extends HookWidget {
       );
     }
 
-    final dreams = state is DreamsLoaded ? state.dreams : <DreamModel>[];
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
       sliver: SliverList.builder(
-        itemCount: dreams.length,
-        itemBuilder: (context, index) => DreamCard(dream: dreams[index]),
+        itemCount: activeDreams.length,
+        itemBuilder: (context, index) => DreamCard(dream: activeDreams[index]),
       ),
     );
   }
@@ -104,7 +107,7 @@ class HomeScreen extends HookWidget {
     final totalTarget = loaded?.totalTarget ?? 0;
     final overallProgress = loaded?.overallProgress ?? 0;
     final overallPercent = loaded?.overallPercent ?? 0;
-    final goalCount = loaded?.dreams.length ?? 0;
+    final goalCount = loaded?.dreams.where((d) => !d.isCompleted).length ?? 0;
 
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
