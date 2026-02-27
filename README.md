@@ -8,9 +8,15 @@
 
 ## 📱 Preview
 
-> Add your app screenshots or a demo GIF here.
-
-![SaveUP App Preview](screenshots/preview1.png)
+<table>
+  <tr>
+    <td align="center"><img src="assets/images/preview/Simulator Screenshot - iPhone 17 Pro - 2026-02-27 at 23.56.27.png" width="180"/></td>
+    <td align="center"><img src="assets/images/preview/Simulator Screenshot - iPhone 17 Pro - 2026-02-27 at 23.56.31.png" width="180"/></td>
+    <td align="center"><img src="assets/images/preview/Simulator Screenshot - iPhone 17 Pro - 2026-02-27 at 23.56.33.png" width="180"/></td>
+    <td align="center"><img src="assets/images/preview/Simulator Screenshot - iPhone 17 Pro - 2026-02-27 at 23.56.34.png" width="180"/></td>
+    <td align="center"><img src="assets/images/preview/Simulator Screenshot - iPhone 17 Pro - 2026-02-27 at 23.56.49.png" width="180"/></td>
+  </tr>
+</table>
 
 ---
 
