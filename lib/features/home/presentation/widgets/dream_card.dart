@@ -354,9 +354,8 @@ class DreamCard extends HookWidget {
 
   LineChartData _buildChartData(DreamModel d, AppColors colors, ColorScheme colorScheme, Color cardColor) {
     final spots = _buildChartSpots(d);
-    final maxY = d.targetAmount > 0
-        ? (d.targetAmount * 1.1).ceilToDouble()
-        : (d.currentAmount * 1.5 + 100).ceilToDouble();
+    final maxVal = spots.isEmpty ? 0.0 : spots.map((s) => s.y).reduce(max);
+    final maxY = maxVal > 0 ? (maxVal * 1.35).ceilToDouble() : 100.0;
 
     return LineChartData(
       minX: 0,
