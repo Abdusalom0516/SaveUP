@@ -23,10 +23,10 @@ class MainScreen extends HookWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const HomeScreen(),
-            const ArchivedDreamsScreen(),
             AddDreamScreen(
               onGoalCreated: () => pageController.jumpToPage(0),
             ),
+            const ArchivedDreamsScreen(),
             const SettingsScreen(),
           ],
         ),
@@ -97,20 +97,20 @@ class _FloatingNavBar extends StatelessWidget {
               colorScheme: colorScheme,
               onTap: onItemSelected,
             ),
+            _AddNavItem(
+              index: 1,
+              selectedIndex: selectedIndex,
+              accentColor: accentColor,
+              onTap: onItemSelected,
+            ),
             _NavItem(
               icon: Icons.inventory_2_rounded,
               outlineIcon: Icons.inventory_2_outlined,
               label: "Archive",
-              index: 1,
-              selectedIndex: selectedIndex,
-              accentColor: accentColor,
-              colorScheme: colorScheme,
-              onTap: onItemSelected,
-            ),
-            _AddNavItem(
               index: 2,
               selectedIndex: selectedIndex,
               accentColor: accentColor,
+              colorScheme: colorScheme,
               onTap: onItemSelected,
             ),
             _NavItem(
