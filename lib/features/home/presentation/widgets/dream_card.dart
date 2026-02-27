@@ -51,16 +51,15 @@ class DreamCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isExpanded = useState(false);
+    final cubit = context.read<DreamsCubit>();
+    final snapshot = useStream<DreamsState>(cubit.stream, initialData: cubit.state);
+    final cubitState = snapshot.data ?? cubit.state;
+    final liveDream = cubitState is DreamsLoaded
+        ? cubitState.dreams.firstWhere((d) => d.id == dream.id, orElse: () => dream)
+        : dream;
 
-    return BlocSelector<DreamsCubit, DreamsState, DreamModel>(
-      selector: (state) {
-        if (state is DreamsLoaded) {
-          return state.dreams.firstWhere((d) => d.id == dream.id, orElse: () => dream);
-        }
-        return dream;
-      },
-      builder: (context, liveDream) => AppStateWrapper(
-        builder: (colors, texts, colorScheme) {
+    return AppStateWrapper(
+      builder: (colors, texts, colorScheme) {
           final cardColor = _colorFromIndex(liveDream.colorIndex, colors);
           return Container(
             margin: EdgeInsets.only(bottom: 15.h),
@@ -263,8 +262,7 @@ class DreamCard extends HookWidget {
             ],
           ),
         );
-        },
-      ),
+      },
     );
   }
 
