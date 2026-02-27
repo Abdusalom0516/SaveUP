@@ -14,7 +14,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 String _fmt(double amount) {
-  if (amount >= 1000) return '\$${NumberFormat('#,##0', 'en_US').format(amount)}';
+  if (amount >= 1000)
+    return '\$${NumberFormat('#,##0', 'en_US').format(amount)}';
   return '\$${amount.toStringAsFixed(0)}';
 }
 
@@ -35,7 +36,7 @@ class HomeScreen extends HookWidget {
                 _buildOverviewSection(colorScheme, texts, colors, loaded),
                 SliverHeight(height: 20),
                 _buildDreamsListSection(state, colors, colorScheme),
-                SliverHeight(height: 35),
+                SliverHeight(height: 95),
               ],
             ),
           ),
@@ -72,14 +73,24 @@ class HomeScreen extends HookWidget {
             child: Column(
               spacing: 12.h,
               children: [
-                Icon(Icons.savings_outlined, size: 56.r, color: colorScheme.secondary),
+                Icon(
+                  Icons.savings_outlined,
+                  size: 56.r,
+                  color: colorScheme.secondary,
+                ),
                 Text(
                   "No active goals",
-                  style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary),
+                  style: AppTextStyles.roboto.medium(
+                    fontSize: 18.sp,
+                    color: colorScheme.primary,
+                  ),
                 ),
                 Text(
                   "Tap + to create your first savings goal",
-                  style: AppTextStyles.roboto.regular(fontSize: 14.sp, color: colorScheme.secondary),
+                  style: AppTextStyles.roboto.regular(
+                    fontSize: 14.sp,
+                    color: colorScheme.secondary,
+                  ),
                 ),
               ],
             ),
@@ -127,11 +138,17 @@ class HomeScreen extends HookWidget {
                 children: [
                   Text(
                     texts.overview,
-                    style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.primary),
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 16.sp,
+                      color: colorScheme.primary,
+                    ),
                   ),
                   Text(
                     "$goalCount ${texts.goalsLower} • ${_fmt(totalSaved)} ${texts.savedLower}",
-                    style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
+                    style: AppTextStyles.roboto.medium(
+                      fontSize: 14.sp,
+                      color: colorScheme.secondary,
+                    ),
                   ),
                 ],
               ),
@@ -143,11 +160,17 @@ class HomeScreen extends HookWidget {
                     children: [
                       Text(
                         texts.totalProgress,
-                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 14.sp,
+                          color: colorScheme.secondary,
+                        ),
                       ),
                       Text(
                         _fmt(totalSaved),
-                        style: AppTextStyles.roboto.medium(fontSize: 20.sp, color: colorScheme.primary),
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 20.sp,
+                          color: colorScheme.primary,
+                        ),
                       ),
                     ],
                   ),
@@ -169,11 +192,17 @@ class HomeScreen extends HookWidget {
                     children: [
                       Text(
                         "$overallPercent%",
-                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 14.sp,
+                          color: colorScheme.secondary,
+                        ),
                       ),
                       Text(
                         "${texts.of} ${_fmt(totalTarget)}",
-                        style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colorScheme.secondary),
+                        style: AppTextStyles.roboto.medium(
+                          fontSize: 14.sp,
+                          color: colorScheme.secondary,
+                        ),
                       ),
                     ],
                   ),
@@ -194,7 +223,9 @@ class HomeScreen extends HookWidget {
   ) {
     final totalSaved = loaded?.totalSaved ?? 0;
     return SliverAppBar(
-      shape: Border(bottom: BorderSide(color: colorScheme.outline, width: 1.5.r)),
+      shape: Border(
+        bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
+      ),
       floating: true,
       pinned: true,
       toolbarHeight: 70.h,
@@ -203,9 +234,20 @@ class HomeScreen extends HookWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
-            child: Image.asset(ConstImgPaths.mainLogo, height: 50.r, width: 50.r, fit: BoxFit.cover),
+            child: Image.asset(
+              ConstImgPaths.mainLogo,
+              height: 50.r,
+              width: 50.r,
+              fit: BoxFit.cover,
+            ),
           ),
-          Text(texts.appName, style: AppTextStyles.roboto.bold(fontSize: 21.sp, color: colorScheme.primary)),
+          Text(
+            texts.appName,
+            style: AppTextStyles.roboto.bold(
+              fontSize: 21.sp,
+              color: colorScheme.primary,
+            ),
+          ),
         ],
       ),
       actions: [
@@ -215,11 +257,17 @@ class HomeScreen extends HookWidget {
           decoration: BoxDecoration(
             color: colors.accent.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: colors.accent.withValues(alpha: 0.5), width: 1.3.r),
+            border: Border.all(
+              color: colors.accent.withValues(alpha: 0.5),
+              width: 1.3.r,
+            ),
           ),
           child: Text(
             _fmt(totalSaved),
-            style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colors.accent),
+            style: AppTextStyles.roboto.medium(
+              fontSize: 16.sp,
+              color: colors.accent,
+            ),
           ),
         ),
       ],

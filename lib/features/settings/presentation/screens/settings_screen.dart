@@ -26,10 +26,21 @@ class SettingsScreen extends StatelessWidget {
               SliverHeight(height: 20),
               _buildPreviewSection(colorScheme, texts, colors),
               SliverHeight(height: 20),
-              _buildThemeSection(colorScheme, colors, settings.colorIndex, cubit),
+              _buildThemeSection(
+                colorScheme,
+                colors,
+                settings.colorIndex,
+                cubit,
+              ),
               SliverHeight(height: 20),
-              _buildFontFamilySection(colorScheme, colors, texts, settings.fontIndex, cubit),
-              SliverHeight(height: 35),
+              _buildFontFamilySection(
+                colorScheme,
+                colors,
+                texts,
+                settings.fontIndex,
+                cubit,
+              ),
+              SliverHeight(height: 105),
             ],
           ),
         );
@@ -37,7 +48,11 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  SliverPadding _buildPreviewSection(ColorScheme colorScheme, ConstTexts texts, AppColors colors) {
+  SliverPadding _buildPreviewSection(
+    ColorScheme colorScheme,
+    ConstTexts texts,
+    AppColors colors,
+  ) {
     return SliverPadding(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
       sliver: SliverToBoxAdapter(
@@ -54,7 +69,10 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Text(
                 texts.preview,
-                style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary),
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 18.sp,
+                  color: colorScheme.primary,
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(12.r),
@@ -79,7 +97,10 @@ class SettingsScreen extends StatelessWidget {
                         ),
                         Text(
                           texts.sampleGoal,
-                          style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.primary),
+                          style: AppTextStyles.roboto.medium(
+                            fontSize: 16.sp,
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -89,7 +110,10 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Text(
                           "\$5,000 / \$10,000",
-                          style: AppTextStyles.roboto.regular(fontSize: 16.sp, color: colorScheme.primary),
+                          style: AppTextStyles.roboto.regular(
+                            fontSize: 16.sp,
+                            color: colorScheme.primary,
+                          ),
                         ),
                         Row(
                           children: [
@@ -141,7 +165,10 @@ class SettingsScreen extends StatelessWidget {
                 title: texts.defaultT,
                 subtitle: "Clean & Modern",
                 extraText: "Sans-serif system font",
-                textStyle: AppTextStyles.robotoFont.semiBold(fontSize: 20.sp, color: colors.accent),
+                textStyle: AppTextStyles.robotoFont.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.accent,
+                ),
                 isChosen: fontIndex == 0,
                 func: () => cubit.setFont(0),
               ),
@@ -150,7 +177,10 @@ class SettingsScreen extends StatelessWidget {
                 title: "Monospace",
                 subtitle: "Code Style",
                 extraText: "Technical & Precise",
-                textStyle: AppTextStyles.monospace.semiBold(fontSize: 20.sp, color: colors.accent),
+                textStyle: AppTextStyles.monospace.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.accent,
+                ),
                 isChosen: fontIndex == 1,
                 func: () => cubit.setFont(1),
               ),
@@ -159,7 +189,10 @@ class SettingsScreen extends StatelessWidget {
                 title: "Serif",
                 subtitle: "Classic & Elegant",
                 extraText: "Traditional & refined",
-                textStyle: AppTextStyles.serif.semiBold(fontSize: 20.sp, color: colors.accent),
+                textStyle: AppTextStyles.serif.semiBold(
+                  fontSize: 20.sp,
+                  color: colors.accent,
+                ),
                 isChosen: fontIndex == 2,
                 func: () => cubit.setFont(2),
               ),
@@ -238,9 +271,15 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  SliverAppBar _buildAppBar(ColorScheme colorScheme, AppColors colors, ConstTexts texts) {
+  SliverAppBar _buildAppBar(
+    ColorScheme colorScheme,
+    AppColors colors,
+    ConstTexts texts,
+  ) {
     return SliverAppBar(
-      shape: Border(bottom: BorderSide(color: colorScheme.outline, width: 1.5.r)),
+      shape: Border(
+        bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
+      ),
       floating: true,
       pinned: true,
       toolbarHeight: 70.h,
@@ -250,15 +289,30 @@ class SettingsScreen extends StatelessWidget {
           Container(
             height: 50.r,
             width: 50.r,
-            decoration: BoxDecoration(color: colors.accent, borderRadius: BorderRadius.circular(16.r)),
+            decoration: BoxDecoration(
+              color: colors.accent,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
             child: Icon(Icons.auto_awesome, color: colors.white, size: 24.r),
           ),
           Column(
             spacing: 3.h,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(texts.settings, style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary)),
-              Text(texts.customizeYourExp, style: AppTextStyles.roboto.medium(fontSize: 15.sp, color: colorScheme.secondary)),
+              Text(
+                texts.settings,
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 18.sp,
+                  color: colorScheme.primary,
+                ),
+              ),
+              Text(
+                texts.customizeYourExp,
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 15.sp,
+                  color: colorScheme.secondary,
+                ),
+              ),
             ],
           ),
         ],

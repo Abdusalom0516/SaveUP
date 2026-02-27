@@ -25,8 +25,9 @@ class DreamsLoaded extends DreamsState {
   final List<DreamModel> dreams;
   const DreamsLoaded(this.dreams);
 
-  double get totalSaved => dreams.fold(0, (sum, d) => sum + d.currentAmount);
-  double get totalTarget => dreams.fold(0, (sum, d) => sum + d.targetAmount);
+  List<DreamModel> get activeDreams => dreams.where((d) => !d.isCompleted).toList();
+  double get totalSaved => activeDreams.fold(0, (sum, d) => sum + d.currentAmount);
+  double get totalTarget => activeDreams.fold(0, (sum, d) => sum + d.targetAmount);
   double get overallProgress =>
       totalTarget > 0 ? (totalSaved / totalTarget).clamp(0.0, 1.0) : 0.0;
   int get overallPercent => (overallProgress * 100).round();

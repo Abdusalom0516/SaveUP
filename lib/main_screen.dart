@@ -1,7 +1,7 @@
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/add_dream/presentation/screens/add_dream_screen.dart';
-import 'package:boilerplate/features/home/presentation/screens/archived_dreams_screen.dart';
+import 'package:boilerplate/features/archive/presentation/screens/archived_dreams_screen.dart';
 import 'package:boilerplate/features/home/presentation/screens/home_screen.dart';
 import 'package:boilerplate/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +23,10 @@ class MainScreen extends HookWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const HomeScreen(),
-            const ArchivedDreamsScreen(),
             AddDreamScreen(
               onGoalCreated: () => pageController.jumpToPage(0),
             ),
+            const ArchivedDreamsScreen(),
             const SettingsScreen(),
           ],
         ),
@@ -97,20 +97,20 @@ class _FloatingNavBar extends StatelessWidget {
               colorScheme: colorScheme,
               onTap: onItemSelected,
             ),
-            _NavItem(
-              icon: Icons.check_circle_rounded,
-              outlineIcon: Icons.check_circle_outline_rounded,
-              label: "Archive",
+            _AddNavItem(
               index: 1,
               selectedIndex: selectedIndex,
               accentColor: accentColor,
-              colorScheme: colorScheme,
               onTap: onItemSelected,
             ),
-            _AddNavItem(
+            _NavItem(
+              icon: Icons.inventory_2_rounded,
+              outlineIcon: Icons.inventory_2_outlined,
+              label: "Archive",
               index: 2,
               selectedIndex: selectedIndex,
               accentColor: accentColor,
+              colorScheme: colorScheme,
               onTap: onItemSelected,
             ),
             _NavItem(
