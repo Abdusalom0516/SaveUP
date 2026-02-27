@@ -25,7 +25,12 @@ class ArchivedDreamsScreen extends StatelessWidget {
               body: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    shape: Border(bottom: BorderSide(color: colorScheme.outline, width: 1.5.r)),
+                    shape: Border(
+                      bottom: BorderSide(
+                        color: colorScheme.outline,
+                        width: 1.5.r,
+                      ),
+                    ),
                     floating: true,
                     pinned: true,
                     toolbarHeight: 70.h,
@@ -39,11 +44,18 @@ class ArchivedDreamsScreen extends StatelessWidget {
                             color: colors.green.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(12.r),
                           ),
-                          child: Icon(Icons.check_circle_outline_rounded, color: colors.green, size: 24.r),
+                          child: Icon(
+                            Icons.check_circle_outline_rounded,
+                            color: colors.green,
+                            size: 24.r,
+                          ),
                         ),
                         Text(
                           'Archived Goals',
-                          style: AppTextStyles.roboto.bold(fontSize: 21.sp, color: colorScheme.primary),
+                          style: AppTextStyles.roboto.bold(
+                            fontSize: 21.sp,
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -53,7 +65,9 @@ class ArchivedDreamsScreen extends StatelessWidget {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(top: 60.h),
-                          child: CircularProgressIndicator(color: colors.accent),
+                          child: CircularProgressIndicator(
+                            color: colors.accent,
+                          ),
                         ),
                       ),
                     )
@@ -65,14 +79,24 @@ class ArchivedDreamsScreen extends StatelessWidget {
                           child: Column(
                             spacing: 12.h,
                             children: [
-                              Icon(Icons.emoji_events_outlined, size: 56.r, color: colorScheme.secondary),
+                              Icon(
+                                Icons.emoji_events_outlined,
+                                size: 56.r,
+                                color: colorScheme.secondary,
+                              ),
                               Text(
                                 "No completed goals yet",
-                                style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary),
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 18.sp,
+                                  color: colorScheme.primary,
+                                ),
                               ),
                               Text(
                                 "Reach 100% on a goal to archive it here",
-                                style: AppTextStyles.roboto.regular(fontSize: 14.sp, color: colorScheme.secondary),
+                                style: AppTextStyles.roboto.regular(
+                                  fontSize: 14.sp,
+                                  color: colorScheme.secondary,
+                                ),
                               ),
                             ],
                           ),
@@ -85,19 +109,32 @@ class ArchivedDreamsScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.r),
                       sliver: SliverToBoxAdapter(
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 8.r),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.r,
+                            vertical: 8.r,
+                          ),
                           decoration: BoxDecoration(
                             color: colors.green.withValues(alpha: 0.10),
                             borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(color: colors.green.withValues(alpha: 0.35), width: 1.r),
+                            border: Border.all(
+                              color: colors.green.withValues(alpha: 0.35),
+                              width: 1.r,
+                            ),
                           ),
                           child: Row(
                             spacing: 8.w,
                             children: [
-                              Icon(Icons.check_circle_rounded, color: colors.green, size: 18.r),
+                              Icon(
+                                Icons.check_circle_rounded,
+                                color: colors.green,
+                                size: 18.r,
+                              ),
                               Text(
                                 "${completed.length} goal${completed.length == 1 ? '' : 's'} completed",
-                                style: AppTextStyles.roboto.medium(fontSize: 14.sp, color: colors.green),
+                                style: AppTextStyles.roboto.medium(
+                                  fontSize: 14.sp,
+                                  color: colors.green,
+                                ),
                               ),
                             ],
                           ),
@@ -116,7 +153,7 @@ class ArchivedDreamsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                  SliverHeight(height: 35),
+                  SliverHeight(height: 95),
                 ],
               ),
             );

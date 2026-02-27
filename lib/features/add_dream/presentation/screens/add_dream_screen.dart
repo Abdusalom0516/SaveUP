@@ -50,7 +50,7 @@ class AddDreamScreen extends HookWidget {
                 chosenColorIndex.value,
               ),
             ),
-            SliverHeight(height: 40),
+            SliverHeight(height: 95),
           ],
         ),
       ),
@@ -78,11 +78,11 @@ class AddDreamScreen extends HookWidget {
     }
 
     context.read<DreamsCubit>().createDream(
-          name: name,
-          targetAmount: target,
-          startingAmount: start,
-          colorIndex: colorIndex,
-        );
+      name: name,
+      targetAmount: target,
+      startingAmount: start,
+      colorIndex: colorIndex,
+    );
 
     nameCtrl.clear();
     targetCtrl.clear();
@@ -191,7 +191,10 @@ class AddDreamScreen extends HookWidget {
               children: [
                 Text(
                   "Color",
-                  style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.secondary),
+                  style: AppTextStyles.roboto.medium(
+                    fontSize: 16.sp,
+                    color: colorScheme.secondary,
+                  ),
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -201,11 +204,31 @@ class AddDreamScreen extends HookWidget {
                     alignment: WrapAlignment.start,
                     crossAxisAlignment: WrapCrossAlignment.start,
                     children: [
-                      ColorsOptionCard(mainColor: colors.purple, isChosen: chosenColorIndex.value == 0, func: () => chosenColorIndex.value = 0),
-                      ColorsOptionCard(mainColor: colors.blue, isChosen: chosenColorIndex.value == 1, func: () => chosenColorIndex.value = 1),
-                      ColorsOptionCard(mainColor: colors.pink, isChosen: chosenColorIndex.value == 2, func: () => chosenColorIndex.value = 2),
-                      ColorsOptionCard(mainColor: colors.green, isChosen: chosenColorIndex.value == 3, func: () => chosenColorIndex.value = 3),
-                      ColorsOptionCard(mainColor: colors.orange, isChosen: chosenColorIndex.value == 4, func: () => chosenColorIndex.value = 4),
+                      ColorsOptionCard(
+                        mainColor: colors.purple,
+                        isChosen: chosenColorIndex.value == 0,
+                        func: () => chosenColorIndex.value = 0,
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.blue,
+                        isChosen: chosenColorIndex.value == 1,
+                        func: () => chosenColorIndex.value = 1,
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.pink,
+                        isChosen: chosenColorIndex.value == 2,
+                        func: () => chosenColorIndex.value = 2,
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.green,
+                        isChosen: chosenColorIndex.value == 3,
+                        func: () => chosenColorIndex.value = 3,
+                      ),
+                      ColorsOptionCard(
+                        mainColor: colors.orange,
+                        isChosen: chosenColorIndex.value == 4,
+                        func: () => chosenColorIndex.value = 4,
+                      ),
                     ],
                   ),
                 ),
@@ -234,7 +257,13 @@ class AddDreamScreen extends HookWidget {
           spacing: 8.w,
           children: [
             Icon(mainIcon, color: colorScheme.secondary, size: 21.r),
-            Text(title, style: AppTextStyles.roboto.medium(fontSize: 15.sp, color: colorScheme.secondary)),
+            Text(
+              title,
+              style: AppTextStyles.roboto.medium(
+                fontSize: 15.sp,
+                color: colorScheme.secondary,
+              ),
+            ),
           ],
         ),
         TextField(
@@ -243,12 +272,22 @@ class AddDreamScreen extends HookWidget {
           keyboardType: keyboardType,
           style: AppTextStyles.roboto
               .medium(fontSize: 16.sp, color: colorScheme.secondary)
-              .copyWith(decoration: TextDecoration.none, decorationColor: colors.transparent, decorationThickness: 0),
+              .copyWith(
+                decoration: TextDecoration.none,
+                decorationColor: colors.transparent,
+                decorationThickness: 0,
+              ),
           decoration: InputDecoration(
             prefixIcon: secondaryIcon == null
                 ? null
                 : Icon(Icons.search, color: colors.secondaryDark, size: 21.r),
-            hint: Text(hint, style: AppTextStyles.roboto.regular(fontSize: 16.sp, color: colorScheme.secondary.withValues(alpha: 0.4))),
+            hint: Text(
+              hint,
+              style: AppTextStyles.roboto.regular(
+                fontSize: 16.sp,
+                color: colorScheme.secondary.withValues(alpha: 0.4),
+              ),
+            ),
             filled: true,
             fillColor: colorScheme.primaryContainer,
             focusColor: colors.transparent,
@@ -274,7 +313,9 @@ class AddDreamScreen extends HookWidget {
     AppColors colors,
   ) {
     return SliverAppBar(
-      shape: Border(bottom: BorderSide(color: colorScheme.outline, width: 1.5.r)),
+      shape: Border(
+        bottom: BorderSide(color: colorScheme.outline, width: 1.5.r),
+      ),
       floating: true,
       pinned: true,
       toolbarHeight: 70.h,
@@ -285,15 +326,34 @@ class AddDreamScreen extends HookWidget {
           Container(
             height: 50.r,
             width: 50.r,
-            decoration: BoxDecoration(color: colors.accent, borderRadius: BorderRadius.circular(16.r)),
-            child: Icon(Icons.keyboard_command_key_rounded, color: colors.white, size: 24.r),
+            decoration: BoxDecoration(
+              color: colors.accent,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            child: Icon(
+              Icons.keyboard_command_key_rounded,
+              color: colors.white,
+              size: 24.r,
+            ),
           ),
           Column(
             spacing: 3.h,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("New Goal", style: AppTextStyles.roboto.medium(fontSize: 18.sp, color: colorScheme.primary)),
-              Text("Create a savings goal", style: AppTextStyles.roboto.medium(fontSize: 15.sp, color: colorScheme.secondary)),
+              Text(
+                "New Goal",
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 18.sp,
+                  color: colorScheme.primary,
+                ),
+              ),
+              Text(
+                "Create a savings goal",
+                style: AppTextStyles.roboto.medium(
+                  fontSize: 15.sp,
+                  color: colorScheme.secondary,
+                ),
+              ),
             ],
           ),
         ],
