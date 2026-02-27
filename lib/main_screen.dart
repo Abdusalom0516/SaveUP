@@ -1,7 +1,7 @@
 import 'package:boilerplate/core/design_system/app_text_styles.dart';
 import 'package:boilerplate/core/utils/app_state_wrapper.dart';
 import 'package:boilerplate/features/add_dream/presentation/screens/add_dream_screen.dart';
-import 'package:boilerplate/features/home/presentation/screens/archived_dreams_screen.dart';
+import 'package:boilerplate/features/archive/presentation/screens/archived_dreams_screen.dart';
 import 'package:boilerplate/features/home/presentation/screens/home_screen.dart';
 import 'package:boilerplate/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
