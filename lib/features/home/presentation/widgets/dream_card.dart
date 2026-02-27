@@ -43,9 +43,10 @@ Color _colorFromIndex(int index, AppColors colors) {
 // ─── Main Card ──────────────────────────────────────────────────────────────
 
 class DreamCard extends HookWidget {
-  const DreamCard({super.key, required this.dream});
+  const DreamCard({super.key, required this.dream, this.isArchiveView = false});
 
   final DreamModel dream;
+  final bool isArchiveView;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +92,22 @@ class DreamCard extends HookWidget {
                           ),
                         ],
                       ),
+                      if (isArchiveView)
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 3.r),
+                          decoration: BoxDecoration(
+                            color: colors.green.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Row(
+                            spacing: 4.w,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.check_rounded, color: colors.green, size: 12.r),
+                              Text("Completed", style: AppTextStyles.roboto.medium(fontSize: 11.sp, color: colors.green)),
+                            ],
+                          ),
+                        ),
                     ],
                   ),
                   Row(
@@ -182,24 +199,25 @@ class DreamCard extends HookWidget {
               Row(
                 spacing: 9.w,
                 children: [
-                  CustomActionButton(
-                    title: texts.update,
-                    onTap: () {
-                      final cubit = context.read<DreamsCubit>();
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (_) => _UpdateSavingsDialog(
-                          dream: dream,
-                          cubit: cubit,
-                          colors: colors,
-                          texts: texts,
-                          colorScheme: colorScheme,
-                        ),
-                      );
-                    },
-                    mainColor: cardColor,
-                  ),
+                  if (!isArchiveView)
+                    CustomActionButton(
+                      title: texts.update,
+                      onTap: () {
+                        final cubit = context.read<DreamsCubit>();
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => _UpdateSavingsDialog(
+                            dream: dream,
+                            cubit: cubit,
+                            colors: colors,
+                            texts: texts,
+                            colorScheme: colorScheme,
+                          ),
+                        );
+                      },
+                      mainColor: cardColor,
+                    ),
                   CustomActionButton(
                     title: texts.stats,
                     onTap: () => AppRouter.go(StatisticsScreen(dream: dream)),
