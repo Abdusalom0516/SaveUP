@@ -305,13 +305,7 @@ class DreamCard extends HookWidget {
       children: [
         Divider(color: colorScheme.outline, thickness: 1.3.r, height: 1),
         SizedBox(height: 15.h),
-        Row(
-          spacing: 10.w,
-          children: [
-            Expanded(child: _miniStatCard("Days Active", "${dream.daysActive}", colorScheme)),
-            Expanded(child: _miniStatCard("Avg / Month", _fmt(dream.avgMonthly), colorScheme)),
-          ],
-        ),
+        _miniStatCard("Avg / Month", _fmt(dream.avgMonthly), colorScheme),
         SizedBox(height: 10.h),
         Container(
           padding: EdgeInsets.all(12.r),
