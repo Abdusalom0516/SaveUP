@@ -44,7 +44,6 @@ class DreamModel {
   final double targetAmount;
   final double currentAmount;
   final int colorIndex; // 0=purple,1=blue,2=pink,3=green,4=orange
-  final DateTime deadline;
   final DateTime createdAt;
   final List<ContributionModel> contributions;
 
@@ -54,7 +53,6 @@ class DreamModel {
     required this.targetAmount,
     required this.currentAmount,
     required this.colorIndex,
-    required this.deadline,
     required this.createdAt,
     required this.contributions,
   });
@@ -67,16 +65,17 @@ class DreamModel {
   double get remaining =>
       (targetAmount - currentAmount).clamp(0.0, double.infinity);
 
-  int get daysLeft =>
-      deadline.difference(DateTime.now()).inDays.clamp(0, 999999);
+  bool get isCompleted => currentAmount >= targetAmount;
 
-  double get monthlyNeed {
-    if (remaining <= 0) return 0;
-    if (daysLeft <= 0) return remaining;
-    return remaining / (daysLeft / 30.0);
+  int get daysActive => DateTime.now().difference(createdAt).inDays;
+
+  double get avgMonthly {
+    final adding = contributions.where((c) => c.isAdding).toList();
+    if (adding.isEmpty) return 0;
+    final months = contributions.map((c) => c.formattedMonth).toSet().length;
+    final total = adding.fold(0.0, (a, c) => a + c.absoluteAmount);
+    return total / (months > 0 ? months : 1);
   }
-
-  String get formattedDeadline => DateFormat('M/d/yyyy').format(deadline);
 
   DreamModel copyWith({
     String? id,
@@ -84,7 +83,6 @@ class DreamModel {
     double? targetAmount,
     double? currentAmount,
     int? colorIndex,
-    DateTime? deadline,
     DateTime? createdAt,
     List<ContributionModel>? contributions,
   }) {
@@ -94,7 +92,6 @@ class DreamModel {
       targetAmount: targetAmount ?? this.targetAmount,
       currentAmount: currentAmount ?? this.currentAmount,
       colorIndex: colorIndex ?? this.colorIndex,
-      deadline: deadline ?? this.deadline,
       createdAt: createdAt ?? this.createdAt,
       contributions: contributions ?? this.contributions,
     );
@@ -106,18 +103,17 @@ class DreamModel {
         'targetAmount': targetAmount,
         'currentAmount': currentAmount,
         'colorIndex': colorIndex,
-        'deadline': deadline.millisecondsSinceEpoch,
         'createdAt': createdAt.millisecondsSinceEpoch,
         'contributions': contributions.map((c) => c.toJson()).toList(),
       };
 
+  // 'deadline' key is intentionally ignored — removed from the model.
   factory DreamModel.fromJson(Map<String, dynamic> json) => DreamModel(
         id: json['id'] as String,
         name: json['name'] as String,
         targetAmount: (json['targetAmount'] as num).toDouble(),
         currentAmount: (json['currentAmount'] as num).toDouble(),
         colorIndex: json['colorIndex'] as int,
-        deadline: DateTime.fromMillisecondsSinceEpoch(json['deadline'] as int),
         createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
         contributions: (json['contributions'] as List)
             .map((e) => ContributionModel.fromJson(e as Map<String, dynamic>))

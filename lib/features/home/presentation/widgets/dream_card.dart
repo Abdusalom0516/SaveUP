@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:boilerplate/core/common/widgets/custom_height_wd.dart';
 import 'package:boilerplate/core/constants/const_texts.dart';
 import 'package:boilerplate/core/design_system/app_colors.dart';
@@ -70,6 +72,7 @@ class DreamCard extends HookWidget {
                 children: [
                   Column(
                     spacing: 7.h,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         spacing: 9.w,
@@ -85,16 +88,6 @@ class DreamCard extends HookWidget {
                           Text(
                             dream.name,
                             style: AppTextStyles.roboto.bold(fontSize: 18.sp, color: colorScheme.primary),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        spacing: 5.w,
-                        children: [
-                          Icon(Icons.calendar_month, size: 16.r, color: colorScheme.secondary),
-                          Text(
-                            dream.formattedDeadline,
-                            style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.secondary),
                           ),
                         ],
                       ),
@@ -297,8 +290,8 @@ class DreamCard extends HookWidget {
         Row(
           spacing: 10.w,
           children: [
-            Expanded(child: _miniStatCard("Days Left", "${dream.daysLeft}", colorScheme)),
-            Expanded(child: _miniStatCard("Monthly Need", _fmt(dream.monthlyNeed), colorScheme)),
+            Expanded(child: _miniStatCard("Days Active", "${dream.daysActive}", colorScheme)),
+            Expanded(child: _miniStatCard("Avg / Month", _fmt(dream.avgMonthly), colorScheme)),
           ],
         ),
         SizedBox(height: 10.h),
@@ -589,26 +582,54 @@ class _UpdateSavingsDialog extends HookWidget {
             Height(height: 20),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16.r),
-              child: CustomActionButton(
-                title: buttonLabel,
-                onTap: () {
-                  final amount = double.tryParse(amountController.text.trim()) ?? 0;
-                  if (amount <= 0) return;
-                  cubit.addContribution(
-                    dreamId: dream.id,
-                    amount: amount,
-                    isAdding: isAdding.value,
-                  );
-                  AppRouter.close();
-                  toastification.show(
-                    context: context,
-                    type: ToastificationType.success,
-                    style: ToastificationStyle.flat,
-                    title: Text(isAdding.value ? 'Savings added!' : 'Amount removed'),
-                    autoCloseDuration: const Duration(seconds: 2),
-                  );
-                },
-                mainColor: colors.accent,
+              child: Row(
+                children: [
+                  CustomActionButton(
+                    title: buttonLabel,
+                    onTap: () {
+                      final amount = double.tryParse(amountController.text.trim()) ?? 0;
+                      if (amount <= 0) return;
+
+                      // Check if this contribution will complete the goal
+                      final delta = isAdding.value ? amount : -amount;
+                      final newAmount = (dream.currentAmount + delta).clamp(0.0, dream.targetAmount);
+                      final willComplete = newAmount >= dream.targetAmount && dream.currentAmount < dream.targetAmount;
+
+                      cubit.addContribution(
+                        dreamId: dream.id,
+                        amount: amount,
+                        isAdding: isAdding.value,
+                      );
+                      AppRouter.close();
+                      toastification.show(
+                        context: context,
+                        type: ToastificationType.success,
+                        style: ToastificationStyle.flat,
+                        title: Text(isAdding.value ? 'Savings added!' : 'Amount removed'),
+                        autoCloseDuration: const Duration(seconds: 2),
+                      );
+
+                      if (willComplete) {
+                        final ctx = AppRouter.navigatorKey.currentContext;
+                        if (ctx != null) {
+                          Future.microtask(() {
+                            if (!ctx.mounted) return;
+                            showDialog(
+                              context: ctx,
+                              barrierDismissible: true,
+                              builder: (_) => _CongratulationsDialog(
+                                dream: dream.copyWith(currentAmount: newAmount),
+                                colors: colors,
+                                colorScheme: colorScheme,
+                              ),
+                            );
+                          });
+                        }
+                      }
+                    },
+                    mainColor: colors.accent,
+                  ),
+                ],
               ),
             ),
           ],
@@ -670,7 +691,6 @@ class _EditDreamDialog extends HookWidget {
     final nameController = useTextEditingController(text: dream.name);
     final targetController = useTextEditingController(text: dream.targetAmount.toStringAsFixed(0));
     final colorIndex = useState(dream.colorIndex);
-    final deadline = useState(dream.deadline);
 
     final colorOptions = [colors.purple, colors.blue, colors.pink, colors.green, colors.orange];
 
@@ -709,38 +729,6 @@ class _EditDreamDialog extends HookWidget {
               _textField(nameController, "Name", colorScheme),
               _fieldLabel("Target Amount", colorScheme),
               _textField(targetController, "Amount", colorScheme, keyboardType: TextInputType.number),
-              _fieldLabel("Deadline", colorScheme),
-              InkWell(
-                onTap: () async {
-                  final picked = await showDatePicker(
-                    context: context,
-                    initialDate: deadline.value,
-                    firstDate: DateTime.now().add(const Duration(days: 1)),
-                    lastDate: DateTime.now().add(const Duration(days: 365 * 20)),
-                  );
-                  if (picked != null) deadline.value = picked;
-                },
-                borderRadius: BorderRadius.circular(12.r),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12.r),
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiary.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(color: colorScheme.outline, width: 1.5.r),
-                  ),
-                  child: Row(
-                    spacing: 8.w,
-                    children: [
-                      Icon(Icons.calendar_today_outlined, color: colorScheme.secondary, size: 18.r),
-                      Text(
-                        DateFormat('MMMM d, yyyy').format(deadline.value),
-                        style: AppTextStyles.roboto.medium(fontSize: 15.sp, color: colorScheme.primary),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               _fieldLabel("Color", colorScheme),
               Wrap(
                 spacing: 10.w,
@@ -767,7 +755,6 @@ class _EditDreamDialog extends HookWidget {
                         name: name,
                         targetAmount: target,
                         colorIndex: colorIndex.value,
-                        deadline: deadline.value,
                       ));
                       AppRouter.close();
                       toastification.show(
@@ -778,7 +765,7 @@ class _EditDreamDialog extends HookWidget {
                         autoCloseDuration: const Duration(seconds: 2),
                       );
                     },
-                    mainColor: colors.purple,
+                    mainColor: colors.accent,
                   ),
                 ],
               ),
@@ -810,6 +797,242 @@ class _EditDreamDialog extends HookWidget {
         contentPadding: EdgeInsets.all(12.r),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide(color: colorScheme.outline, width: 1.5.r)),
         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide(color: colorScheme.outline, width: 1.5.r)),
+      ),
+    );
+  }
+}
+
+// ─── Congratulations Dialog ──────────────────────────────────────────────────
+
+class _ConfettiParticle {
+  final double x;
+  final double startY;
+  final double speed;
+  final Color color;
+  final double size;
+  final double rotation;
+  final double sway;
+  final bool isCircle;
+
+  const _ConfettiParticle({
+    required this.x,
+    required this.startY,
+    required this.speed,
+    required this.color,
+    required this.size,
+    required this.rotation,
+    required this.sway,
+    required this.isCircle,
+  });
+}
+
+class _ConfettiPainter extends CustomPainter {
+  final List<_ConfettiParticle> particles;
+  final double progress;
+
+  const _ConfettiPainter({required this.particles, required this.progress});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+    for (final p in particles) {
+      final y = ((p.startY + progress * p.speed) % 1.3) * size.height;
+      final x = p.x * size.width + sin(progress * pi * 2 * 1.5) * p.sway * size.width;
+      if (y < 0) continue;
+      paint.color = p.color.withValues(alpha: 0.88);
+      canvas.save();
+      canvas.translate(x, y);
+      canvas.rotate(p.rotation + progress * pi * 3);
+      if (p.isCircle) {
+        canvas.drawCircle(Offset.zero, p.size * 0.4, paint);
+      } else {
+        canvas.drawRect(
+          Rect.fromCenter(center: Offset.zero, width: p.size, height: p.size * 0.45),
+          paint,
+        );
+      }
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ConfettiPainter old) => old.progress != progress;
+}
+
+class _CongratulationsDialog extends StatefulWidget {
+  const _CongratulationsDialog({
+    required this.dream,
+    required this.colors,
+    required this.colorScheme,
+  });
+
+  final DreamModel dream;
+  final AppColors colors;
+  final ColorScheme colorScheme;
+
+  @override
+  State<_CongratulationsDialog> createState() => _CongratulationsDialogState();
+}
+
+class _CongratulationsDialogState extends State<_CongratulationsDialog>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final List<_ConfettiParticle> _particles;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    )..repeat();
+
+    final rng = Random(42);
+    final confettiColors = [
+      widget.colors.purple,
+      widget.colors.blue,
+      widget.colors.pink,
+      widget.colors.green,
+      widget.colors.orange,
+      widget.colors.teal,
+    ];
+    _particles = List.generate(60, (i) => _ConfettiParticle(
+          x: rng.nextDouble(),
+          startY: -rng.nextDouble() * 0.6,
+          speed: 0.35 + rng.nextDouble() * 0.55,
+          color: confettiColors[i % confettiColors.length],
+          size: 6.0 + rng.nextDouble() * 9.0,
+          rotation: rng.nextDouble() * pi * 2,
+          sway: 0.02 + rng.nextDouble() * 0.05,
+          isCircle: i % 4 == 0,
+        ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cardColor = _colorFromIndex(widget.dream.colorIndex, widget.colors);
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 60.r),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Confetti layer
+          Positioned.fill(
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (_, child) => CustomPaint(
+                painter: _ConfettiPainter(
+                  particles: _particles,
+                  progress: _controller.value,
+                ),
+              ),
+            ),
+          ),
+
+          // Card content
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(24.r),
+            decoration: BoxDecoration(
+              color: widget.colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(20.r),
+              border: Border.all(color: widget.colorScheme.outline, width: 1.5.r),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Close button
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      height: 34.r,
+                      width: 34.r,
+                      decoration: BoxDecoration(
+                        color: widget.colorScheme.tertiary,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Icon(Icons.close, color: widget.colors.primaryDark, size: 18.r),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8.h),
+
+                // Trophy icon
+                Container(
+                  height: 80.r,
+                  width: 80.r,
+                  decoration: BoxDecoration(
+                    color: cardColor.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.emoji_events_rounded, size: 44.r, color: cardColor),
+                ),
+                SizedBox(height: 20.h),
+
+                Text(
+                  "Goal Achieved!",
+                  style: AppTextStyles.roboto.bold(fontSize: 24.sp, color: widget.colorScheme.primary),
+                ),
+                SizedBox(height: 6.h),
+                Text(
+                  widget.dream.name,
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.roboto.medium(fontSize: 17.sp, color: widget.colorScheme.secondary),
+                ),
+                SizedBox(height: 20.h),
+
+                // Amount badge
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 10.r),
+                  decoration: BoxDecoration(
+                    color: cardColor.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: cardColor.withValues(alpha: 0.4), width: 1.5.r),
+                  ),
+                  child: Text(
+                    _fmt(widget.dream.targetAmount),
+                    style: AppTextStyles.roboto.bold(fontSize: 30.sp, color: cardColor),
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Text(
+                  "You've reached your savings target!",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.roboto.regular(fontSize: 14.sp, color: widget.colorScheme.secondary),
+                ),
+                SizedBox(height: 24.h),
+
+                // Awesome button
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 14.r),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Text(
+                      "Awesome! 🎉",
+                      style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: widget.colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
