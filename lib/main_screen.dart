@@ -98,8 +98,8 @@ class _FloatingNavBar extends StatelessWidget {
               onTap: onItemSelected,
             ),
             _NavItem(
-              icon: Icons.check_circle_rounded,
-              outlineIcon: Icons.check_circle_outline_rounded,
+              icon: Icons.inventory_2_rounded,
+              outlineIcon: Icons.inventory_2_outlined,
               label: "Archive",
               index: 1,
               selectedIndex: selectedIndex,
