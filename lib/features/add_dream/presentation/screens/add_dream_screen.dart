@@ -160,7 +160,7 @@ class AddDreamScreen extends HookWidget {
               colors: colors,
               colorScheme: colorScheme,
               controller: goalNameController,
-              hint: "Travel to Japan",
+              hint: "Name",
               mainIcon: Icons.account_tree_sharp,
               secondaryIcon: null,
               title: "Goal Name",
@@ -169,7 +169,7 @@ class AddDreamScreen extends HookWidget {
               colors: colors,
               colorScheme: colorScheme,
               controller: targetAmountController,
-              hint: "25 000",
+              hint: "0",
               mainIcon: Icons.attach_money_outlined,
               secondaryIcon: Icons.attach_money_outlined,
               title: "Target Amount",
@@ -248,7 +248,7 @@ class AddDreamScreen extends HookWidget {
             prefixIcon: secondaryIcon == null
                 ? null
                 : Icon(Icons.search, color: colors.secondaryDark, size: 21.r),
-            hint: Text(hint, style: AppTextStyles.roboto.medium(fontSize: 16.sp, color: colorScheme.secondary)),
+            hint: Text(hint, style: AppTextStyles.roboto.regular(fontSize: 16.sp, color: colorScheme.secondary.withValues(alpha: 0.4))),
             filled: true,
             fillColor: colorScheme.primaryContainer,
             focusColor: colors.transparent,
